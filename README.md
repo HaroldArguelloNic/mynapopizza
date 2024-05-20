@@ -16,5 +16,12 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 Esta aplicación sera el projecto a desarrollar en Curso Libre Profesional II, Universidad Nacional Politecnica
+![LOGO_FINAL_UNP](https://github.com/HaroldArguelloNic/mynapopizza/assets/89761802/ab4d1c3d-4d5c-4caa-bad8-c1e195eb6b32)
+
+
+![pizza_napo](https://github.com/HaroldArguelloNic/mynapopizza/assets/89761802/c8a7b367-4819-4bf0-a938-16234a3183f4)
+
+
+
 ![file](https://github.com/HaroldArguelloNic/mynapopizza/assets/89761802/3cee2854-ad9c-4e2c-9cc1-8cba2b3a054d)
 
