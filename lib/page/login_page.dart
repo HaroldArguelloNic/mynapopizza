@@ -6,12 +6,15 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange,
-      body: SafeArea(
+      backgroundColor: Colors.orange[200],  // change Color
+      body: Center(                           // change SafeArea
+        child: SizedBox(                      // add SizedBox
+          width: 600,                         // ancho 600
+          
         child: Center(
           child: Column(
             children: [
-              const SizedBox(height: 50),
+              const SizedBox(height: 50,),
               // Icono
               const Icon(
                 Icons.person,
@@ -62,14 +65,14 @@ class LoginPage extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   decoration: BoxDecoration(
-                    color: Colors.blue[400],
+                    color: Colors.blue[100],
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Center(
                     child: Text(
                       "Iniciar Sesion",
                       style: TextStyle(
-                        color: Color.fromARGB(255, 10, 85, 11),
+                        color: Color.fromARGB(255, 10, 85, 11), // change color
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -80,6 +83,7 @@ class LoginPage extends StatelessWidget {
             ],
           ),
         ),
+      ),
       ),
     );
   }
