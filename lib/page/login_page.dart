@@ -6,7 +6,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.orange,
       body: SafeArea(
         child: Center(
           child: Column(
@@ -18,10 +18,10 @@ class LoginPage extends StatelessWidget {
                 size: 110,
               ),
               const Text(
-                'Bienvenido!',
+                'Bienvenido A MyNapoPizza!',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
+                  color: Colors.white,
+                  fontSize: 35,
                 ),
               ),
               const SizedBox(height: 40),
@@ -69,9 +69,9 @@ class LoginPage extends StatelessWidget {
                     child: Text(
                       "Iniciar Sesion",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 10, 85, 11),
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 20,
                       ),
                     ),
                   ),
