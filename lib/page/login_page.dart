@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -93,8 +94,20 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                
+              ),
+              
+              
+
+              const Text('Registrar usuario',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,              
                 ),
-              ],
+              ),
+                
+            ],
             ),
           ),
         ),

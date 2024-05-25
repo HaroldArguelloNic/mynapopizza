@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/page/login_page.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
 
 void main() {
