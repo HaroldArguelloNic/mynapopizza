@@ -68,7 +68,7 @@ class LoginPage extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('Funcionalidad en Proceso'),
                         duration: Duration(
                             seconds: 2),

@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mynapopizza/page/login_page.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
       const Duration(seconds: 4),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       ),
     );
 
@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
           children: [
             // Texto de bienvenida
             
-            Text(
+            const Text(
                 'PizzaNapo...',
                 style: TextStyle(
                   fontStyle: FontStyle.italic, 
@@ -38,13 +38,13 @@ class SplashScreen extends StatelessWidget {
                   )],
                 ),
               ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             // Carga de la imagen de forma asíncrona
             FutureBuilder(
               future: precacheImage(
-                AssetImage('assets/pizza.png'),
+                const AssetImage('assets/pizza.png'),
                 context,
               ),
               builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
@@ -57,7 +57,7 @@ class SplashScreen extends StatelessWidget {
                   );
                 } else {
                   // Mientras la imagen se está cargando, muestra un indicador de progreso
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               },
             ),
