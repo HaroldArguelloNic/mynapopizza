@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/registration_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -99,7 +100,10 @@ class LoginPage extends StatelessWidget {
               ),
               TextButton(
                 onPressed: 
-                () {},
+                () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegistrationPage()),
+                ),
                 child: const Text('Registrar usuario',
                   style: TextStyle(
                     color: Colors.black,
