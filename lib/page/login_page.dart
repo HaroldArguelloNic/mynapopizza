@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
         // change SafeArea
         child: SizedBox(
           // add SizedBox
-          width: 600, // ancho 600
+          width: 400, // ancho 600
 
           child: Center(
             child: Column(
@@ -27,6 +27,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 const Text(
                   'Bienvenido A MyNapoPizza!',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 35,
@@ -96,17 +97,18 @@ class LoginPage extends StatelessWidget {
                   ),
                 
               ),
-              
-              
-
-              const Text('Registrar usuario',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,              
+              TextButton(
+                onPressed: 
+                () {},
+                child: const Text('Registrar usuario',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,              
+                  ),
                 ),
               ),
-                
+                                       
             ],
             ),
           ),
