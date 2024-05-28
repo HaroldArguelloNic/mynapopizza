@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-
+import 'package:mynapopizza/page/sidebar_layout.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -11,81 +10,84 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   @override
-  Widget build(BuildContext context) =>
-     Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/background2.jpg',),
-          fit: BoxFit.cover,)
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: const Text('Registro de Usuario'),
-          centerTitle: true,
-          backgroundColor: Colors.amber,
-        ),
-        body:
-          const Padding(
-          padding: EdgeInsets.all(12.0),
-          child: Center(
-                child: SizedBox(
-                  width:  450,
-                  child: Column(
-          
-                    children: [
-                      TextFieldWidget(
-                        label: 'Nombre de Usuario',
-                        placeholder: 'Nombre',
-                        icon: Icons.person_2_rounded,       
+  Widget build(BuildContext context) => Container(
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+          image: AssetImage(
+            'assets/background2.jpg',
+          ),
+          fit: BoxFit.cover,
+        )),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(
+            title: const Text('Registro de Usuario'),
+            centerTitle: true,
+            backgroundColor: Colors.amber,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Center(
+              child: SizedBox(
+                width: 450,
+                child: Column(
+                  children: [
+                    const TextFieldWidget(
+                      label: 'Nombre de Usuario',
+                      placeholder: 'Nombre',
+                      icon: Icons.person_2_rounded,
+                    ),
+                    const TextFieldWidget(
+                      label: 'correo electronico',
+                      placeholder: 'Email',
+                      icon: Icons.mail,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        child: const Text('Pagina Principal'),
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SideBarLayout()),
+                        ),
                       ),
-                      TextFieldWidget(
-                        label: 'correo electronico',
-                        placeholder: 'Email',
-                        icon: Icons.mail,       
-                      ),
-                    ],  
-                  ),
-                  
+                    ),
+                  ],
                 ),
+              ),
             ),
           ),
         ),
-    );
-             
+      );
+}
 
-      
-  }
-
-
-
-class TextFieldWidget extends StatelessWidget{ 
-
-final String label;
-final String placeholder;
-final IconData? icon;
-final bool isTextArea;
-final TextEditingController? controller;
+class TextFieldWidget extends StatelessWidget {
+  final String label;
+  final String placeholder;
+  final IconData? icon;
+  final bool isTextArea;
+  final TextEditingController? controller;
 
 // ignore: use_super_parameters
-const TextFieldWidget({
-Key? key,
-required this.label,
-required this.placeholder,
-this.icon,
-this.isTextArea= false , this.controller
-  }) : super(key : key);
-
+  const TextFieldWidget(
+      {Key? key,
+      required this.label,
+      required this.placeholder,
+      this.icon,
+      this.isTextArea = false,
+      this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(label, style:const TextStyle( color: Colors.green, fontSize: 18)  ),
+          Text(label,
+              style: const TextStyle(color: Colors.green, fontSize: 18)),
           const SizedBox(height: 5.0),
           Container(
             padding: const EdgeInsets.only(left: 10.0),
@@ -99,8 +101,7 @@ this.isTextArea= false , this.controller
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: placeholder,
-                suffixIcon: icon != null ? Icon(icon, color: Colors.red): null,
-      
+                suffixIcon: icon != null ? Icon(icon, color: Colors.red) : null,
               ),
             ),
           )
