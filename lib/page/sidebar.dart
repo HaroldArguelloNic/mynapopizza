@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/myaccountpage.dart';
 
 class SideBar extends StatefulWidget {
 
@@ -22,12 +23,15 @@ return Drawer(
       ListTile(
         leading: const Icon(Icons.favorite),
         title: const Text('Favorite'),
-        onTap: () {},
+        onTap: () {}
       ),
       ListTile(
         leading: const Icon(Icons.settings),
         title: const Text('Account'),
-        onTap: () {},
+        onTap: () => Navigator.pushReplacement(context,
+        MaterialPageRoute(builder:(context) => const MyAccountPage(),
+        )
+        ),
       ),
       ListTile(
         leading: const Icon(Icons.delivery_dining),
