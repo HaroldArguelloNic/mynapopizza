@@ -1,33 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/home_page.dart';
+
 import 'package:mynapopizza/page/registration_page.dart';
 
-class LoginPage extends StatelessWidget {
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _usuarioController = TextEditingController();
+  final TextEditingController _contraseniaController = TextEditingController();
+
+    //Prueba de login falta implementacion con datos
+  void _BetaLogin(BuildContext context) {
+    String usuario = _usuarioController.text;
+    String contrasena = _contraseniaController.text;
+    // Validación simple: Si el usuario es 'admin' y la contraseña es 'admin', consideramos que es válido
+    if (usuario == 'admin' && contrasena == 'admin') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Credenciales inválidas'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[200], // change Color
+      backgroundColor: Colors.orange[200],
       body: SingleChildScrollView(
         child: Center(
-            // change SafeArea
-            child: SizedBox(
-          // add SizedBox
-          width: 400, // ancho 600
-          child: Center(
-            // icono de persona
+          child: SizedBox(
+            width: 400,
             child: Column(
               children: [
                 const SizedBox(
                   height: 40,
                 ),
-                // Icono
                 const Icon(
                   Icons.person,
                   size: 110,
                 ),
-
-                /*   Texto de bienvenida              */
+                  /*   Texto de bienvenida              */
                 const Text(
                   'Bienvenido A MyNapoPizza!',
                   textAlign: TextAlign.center,
@@ -38,10 +62,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 // Usuario TextField
-                const Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
+                    controller: _usuarioController,
                     decoration: InputDecoration(
                       labelText: 'Usuario',
                       enabledBorder: OutlineInputBorder(
@@ -53,10 +78,11 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 // Contraseña TextField
-                const Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
+                    controller: _contraseniaController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Contraseña',
@@ -70,7 +96,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 // Botón de inicio de sesión
                 ElevatedButton.icon(
-                  onPressed: () {
+                  onPressed: () = _BetaLogin(context){
 
                   },
                   icon: const Icon(Icons.door_front_door_rounded),
@@ -103,8 +129,6 @@ class LoginPage extends StatelessWidget {
               ],
             ),
           ),
-
-        )
         ),
       ),
     );
