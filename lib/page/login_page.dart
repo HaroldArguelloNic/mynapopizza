@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:mynapopizza/page/registration_page.dart';
 
 class LoginPage extends StatelessWidget {

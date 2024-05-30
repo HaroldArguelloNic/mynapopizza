@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage();
+  const HomePage({super.key});
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -28,8 +28,8 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'Tipo Pizzas',
                   style: TextStyle(
@@ -53,8 +53,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
                 child: Text(
                   'Pizzas',
                   style: TextStyle(
@@ -85,11 +85,11 @@ class _HomePageState extends State<HomePage> {
   Widget _buildTypeCard(String type) {
     return Container(
       width: 110, // Ancho fijo para cada tarjeta de tipo
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 4.0,
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
       child: Center(
         child: Text(
           type,
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -109,12 +109,12 @@ class _HomePageState extends State<HomePage> {
 //card para las  pizzas
   Widget _buildPizzaCard(String pizza) {
     return Container(
-      margin: EdgeInsets.all(8.0),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: Colors.black26,
             blurRadius: 4.0,
@@ -124,11 +124,11 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Row(
         children: [
-          Icon(Icons.local_pizza, size: 60, color: Colors.orange),
-          SizedBox(width: 16.0),
+          const Icon(Icons.local_pizza, size: 60, color: Colors.orange),
+          const SizedBox(width: 16.0),
           Text(
             pizza,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
         ],
       ),
