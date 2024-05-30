@@ -11,10 +11,10 @@ class SideBarLayout extends StatefulWidget {
 class _SideBarLayoutState extends State<SideBarLayout> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return  const Scaffold(
       body: Stack(children: <Widget>[
         HomePage(),
-        SideBar(),
+        
       ]),
     );
   }

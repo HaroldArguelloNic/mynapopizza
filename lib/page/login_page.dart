@@ -16,17 +16,19 @@ class _LoginPageState extends State<LoginPage> {
 
     //Prueba de login falta implementacion con datos
   void _BetaLogin(BuildContext context) {
+    
     String usuario = _usuarioController.text;
     String contrasena = _contraseniaController.text;
+
     // Validación simple: Si el usuario es 'admin' y la contraseña es 'admin', consideramos que es válido
     if (usuario == 'admin' && contrasena == 'admin') {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Credenciales inválidas'),
           duration: Duration(seconds: 2),
         ),
@@ -64,10 +66,10 @@ class _LoginPageState extends State<LoginPage> {
                 // Usuario TextField
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
                     controller: _usuarioController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Usuario',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black54),
@@ -80,11 +82,11 @@ class _LoginPageState extends State<LoginPage> {
                 // Contraseña TextField
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                      const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
                     controller: _contraseniaController,
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: 'Contraseña',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black54),
@@ -96,9 +98,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 // Botón de inicio de sesión
                 ElevatedButton.icon(
-                  onPressed: () = _BetaLogin(context){
+                  onPressed: () => _BetaLogin(context)
 
-                  },
+                  ,
                   icon: const Icon(Icons.door_front_door_rounded),
                   label: const Text(
                     'Login',
