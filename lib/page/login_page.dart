@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:mynapopizza/page/registration_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -71,7 +70,9 @@ class LoginPage extends StatelessWidget {
                 ),
                 // Botón de inicio de sesión
                 ElevatedButton.icon(
-                  onPressed: null,
+                  onPressed: () {
+
+                  },
                   icon: const Icon(Icons.door_front_door_rounded),
                   label: const Text(
                     'Login',
@@ -90,7 +91,7 @@ class LoginPage extends StatelessWidget {
                           builder: (context) => const RegistrationPage()),
                     ),
                     child: const Text(
-                      'Registrar usuario',
+                      '¿Desea Registrarse?',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/login_page.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -14,7 +13,7 @@ class SplashScreen extends StatelessWidget {
       const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>  HomePage()),
+        MaterialPageRoute(builder: (context) =>  const LoginPage()),
       ),
     );
 

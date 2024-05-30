@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +18,77 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       child: Scaffold(
+        drawer: Drawer(
+          child:ListView(
+            padding: EdgeInsets.zero,
+            children:  [
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(224, 132, 46, 0.71),
+                ),
+                child: Text('My Usuario')
+                ),
+                
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  
+                  child: ListTile(
+                  
+                    leading: const Icon(Icons.home, color: Colors.blue,),
+                    title: const Text('home', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
+                    onTap: () => Navigator.pop(context),
+
+                  
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ListTile(
+                  
+                    leading: const Icon(Icons.favorite_rounded, color: Colors.red,),
+                    title: const Text('Favoritos', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
+                    onTap: () => Navigator.pop(context),
+                  
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ListTile(
+                  
+                    leading: const Icon(Icons.local_pizza,  color: Colors.amber,),
+                    title: const Text('Producto', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
+                    onTap: () => Navigator.pop(context),
+                  
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ListTile(
+                  
+                    leading: const Icon(Icons.playlist_add_check_circle, color: Colors.green,),
+                    title: const Text('Mi Orden', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
+                    onTap: () => Navigator.pop(context),
+                  
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ListTile(
+                  
+                    leading: const Icon(Icons.man, color: Colors.purple,),
+                    title: const Text('Mi Perfil', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
+                    onTap: () => Navigator.pop(context),
+                  
+                  ),
+                ),
+
+
+
+          ],
+
+          ) ,
+          
+          ),
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: const Text(
@@ -40,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               // agregar una fila horizontal para los tipos
-              Container(
+              SizedBox(
                 height: 100, // Altura fija para la fila de tipos
                 child: ListView(
                   scrollDirection: Axis.horizontal,
@@ -67,12 +139,12 @@ class _HomePageState extends State<HomePage> {
               //  agregar una columna vertical para las pizzas
               Column(
                 children: [
-                  _buildPizzaCard('Pizza 1'),
-                  _buildPizzaCard('Pizza 2'),
-                  _buildPizzaCard('Pizza 3'),
-                  _buildPizzaCard('Pizza 4'),
-                  _buildPizzaCard('Pizza 5'),
-                  _buildPizzaCard('Pizza 5'),
+                  _buildPizzaCard('Pizza 1','pizzaJamon.jpg'),
+                  _buildPizzaCard('Pizza 2', 'pizzaHawaina.jpg'),
+                  _buildPizzaCard('Pizza 3', 'pizzaJamon.jpg'),
+                  _buildPizzaCard('Pizza 4', 'pizzaPeperoni.jpg'),
+                  _buildPizzaCard('Pizza 5','pizzaJamon.jpg' ) , 
+                  _buildPizzaCard('Pizza 6', 'pizzaPeperoni.jpg'),
                 ],
               ),
             ],
@@ -84,7 +156,8 @@ class _HomePageState extends State<HomePage> {
 //card para los tipos de pizza
   Widget _buildTypeCard(String type) {
     return Container(
-      width: 110, // Ancho fijo para cada tarjeta de tipo
+      width: 200, // Ancho fijo para cada tarjeta de tipo
+      height: 100, //ALto
       margin: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -107,10 +180,13 @@ class _HomePageState extends State<HomePage> {
   }
 
 //card para las  pizzas
-  Widget _buildPizzaCard(String pizza) {
+  Widget _buildPizzaCard(String pizza, String pizzaimage) {
     return Container(
+      alignment: Alignment.center,
+      height: 200,
+      width: 800,
       margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
@@ -123,9 +199,13 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       child: Row(
+        
         children: [
+
           const Icon(Icons.local_pizza, size: 60, color: Colors.orange),
-          const SizedBox(width: 16.0),
+          //const SizedBox(width: 55.0, height: 180,),
+          _imagenPizza(pizzaimage),
+          
           Text(
             pizza,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -134,4 +214,19 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+
+Widget _imagenPizza(String pizzaimage){
+  return SizedBox(
+    height: 200,
+    width: 200,
+    child: Image(
+      fit: BoxFit.scaleDown,
+      image: AssetImage('assets/$pizzaimage'),
+      width: 200,
+      height: 200,
+    ),
+  );
+
+}
 }
