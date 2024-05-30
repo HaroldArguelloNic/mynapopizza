@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/home_page.dart';
+
 import 'package:mynapopizza/page/registration_page.dart';
 
 
@@ -50,6 +51,7 @@ class _LoginPageState extends State <LoginPage>{
           // add SizedBox
           width: 400, // ancho 600
           child: Center(
+            // icono de persona
             child: Column(
               children: [
                 const SizedBox(
@@ -60,6 +62,8 @@ class _LoginPageState extends State <LoginPage>{
                   Icons.person,
                   size: 110,
                 ),
+
+                /*   Texto de bienvenida              */
                 const Text(
                   'Bienvenido A MyNapoPizza!',
                   textAlign: TextAlign.center,
@@ -137,13 +141,41 @@ class _LoginPageState extends State <LoginPage>{
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
+                ElevatedButton.icon(
+                  onPressed: null,
+                  icon: const Icon(Icons.door_front_door_rounded),
+                  label: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  style: const ButtonStyle(
+                    fixedSize: MaterialStatePropertyAll(Size(200, 40)),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegistrationPage()),
+                    ),
+                    child: const Text(
+                      'Registrar usuario',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-        )),
+
+        )
+        ),
       ),
     );
   }
