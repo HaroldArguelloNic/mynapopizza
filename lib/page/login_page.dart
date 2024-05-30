@@ -1,8 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 
-class LoginPage extends StatelessWidget {
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State <LoginPage>{
+
+  final TextEditingController _usuarioController = TextEditingController();
+  final TextEditingController _contraseniaController = TextEditingController();
+
+  void _BetaLogin() {
+    //Prueba de login falta implementacion con datos.
+    String usuario = _usuarioController.text;
+    String contrasena = _contraseniaController.text;
+
+    // Validación simple: Si el usuario es 'admin' y la contraseña es 'admin', consideramos que es válido
+    if (usuario == 'admin' && contrasena == 'admin') {
+      // Si las credenciales son válidas, navegamos a la próxima vista
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()), // Cambia HomePage por el nombre de tu próxima vista
+      );
+    } else {
+      // Si las credenciales son inválidas, mostramos un mensaje de error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Credenciales inválidas'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +70,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 // Usuario TextField
-                const Padding(
+                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
+                    controller: _usuarioController,
                     decoration: InputDecoration(
                       labelText: 'Usuario',
                       enabledBorder: OutlineInputBorder(
@@ -50,10 +86,11 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 // Contraseña TextField
-                const Padding(
+                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
+                    controller: _contraseniaController,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Contraseña',
@@ -67,14 +104,7 @@ class LoginPage extends StatelessWidget {
                 ),
                 // Botón de inicio de sesión
                 GestureDetector(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Funcionalidad en Proceso'),
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                  },
+                  onTap:  _BetaLogin,
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.symmetric(
@@ -118,3 +148,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
