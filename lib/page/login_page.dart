@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 
@@ -9,12 +8,12 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.orange[200], // change Color
-      body: Center(
-        // change SafeArea
-        child: SizedBox(
+      body: SingleChildScrollView(
+        child: Center(
+            // change SafeArea
+            child: SizedBox(
           // add SizedBox
           width: 400, // ancho 600
-
           child: Center(
             child: Column(
               children: [
@@ -72,8 +71,7 @@ class LoginPage extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Funcionalidad en Proceso'),
-                        duration: Duration(
-                            seconds: 2),
+                        duration: Duration(seconds: 2),
                       ),
                     );
                   },
@@ -96,27 +94,26 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                
-              ),
-              TextButton(
-                onPressed: 
-                () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegistrationPage()),
                 ),
-                child: const Text('Registrar usuario',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,              
+                TextButton(
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegistrationPage()),
+                  ),
+                  child: const Text(
+                    'Registrar usuario',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
-              ),
-                                       
-            ],
+              ],
             ),
           ),
-        ),
+        )),
       ),
     );
   }
