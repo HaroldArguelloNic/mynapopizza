@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -15,6 +16,7 @@ class LoginPage extends StatelessWidget {
           // add SizedBox
           width: 400, // ancho 600
           child: Center(
+            // icono de persona
             child: Column(
               children: [
                 const SizedBox(
@@ -25,6 +27,8 @@ class LoginPage extends StatelessWidget {
                   Icons.person,
                   size: 110,
                 ),
+
+                /*   Texto de bienvenida              */
                 const Text(
                   'Bienvenido A MyNapoPizza!',
                   textAlign: TextAlign.center,
@@ -66,54 +70,41 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 // Botón de inicio de sesión
-                GestureDetector(
-                  onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Funcionalidad en Proceso'),
-                        duration: Duration(seconds: 2),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 25, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.blue[400],
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "Iniciar Sesión",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 10, 85, 11),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+                ElevatedButton.icon(
+                  onPressed: null,
+                  icon: const Icon(Icons.door_front_door_rounded),
+                  label: const Text(
+                    'Login',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  style: const ButtonStyle(
+                    fixedSize: MaterialStatePropertyAll(Size(200, 40)),
                   ),
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegistrationPage()),
-                  ),
-                  child: const Text(
-                    'Registrar usuario',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextButton(
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegistrationPage()),
+                    ),
+                    child: const Text(
+                      'Registrar usuario',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
               ],
             ),
           ),
-        )),
+
+        )
+        ),
       ),
     );
   }
