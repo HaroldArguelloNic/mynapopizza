@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/login_page.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -10,10 +11,10 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Establece un temporizador para navegar a la página de inicio de sesión después de 2 segundos
     Timer(
-      const Duration(seconds: 4),
+      const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
+        MaterialPageRoute(builder: (context) =>  HomePage()),
       ),
     );
 
