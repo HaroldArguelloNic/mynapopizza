@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
           
           ),
         backgroundColor: Colors.transparent,
-        drawer: const SideBar(),
+        //drawer:SideBar(),
         appBar: AppBar(
           title: const Text(
             'MyNapoPizza',
@@ -177,6 +177,7 @@ class _HomePageState extends State<HomePage> {
           type,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
+        
       ),
     );
   }
@@ -204,7 +205,7 @@ class _HomePageState extends State<HomePage> {
         
         children: [
 
-          const Icon(Icons.local_pizza, size: 60, color: Colors.orange),
+          //const Icon(Icons.local_pizza, size: 60, color: Colors.orange),
           //const SizedBox(width: 55.0, height: 180,),
           _imagenPizza(pizzaimage),
           

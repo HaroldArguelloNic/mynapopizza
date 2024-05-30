@@ -13,7 +13,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Perfil'),
+        title: Text('Perfil Usuario'),
       ),
       body: MyAccountBody(),
     );
