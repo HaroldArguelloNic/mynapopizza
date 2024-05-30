@@ -10,26 +10,21 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-
-class _LoginPageState extends State <LoginPage>{
-
+class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usuarioController = TextEditingController();
   final TextEditingController _contraseniaController = TextEditingController();
 
-  void _BetaLogin() {
-    //Prueba de login falta implementacion con datos.
+    //Prueba de login falta implementacion con datos
+  void _BetaLogin(BuildContext context) {
     String usuario = _usuarioController.text;
     String contrasena = _contraseniaController.text;
-
     // Validación simple: Si el usuario es 'admin' y la contraseña es 'admin', consideramos que es válido
     if (usuario == 'admin' && contrasena == 'admin') {
-      // Si las credenciales son válidas, navegamos a la próxima vista
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()), // Cambia HomePage por el nombre de tu próxima vista
+        MaterialPageRoute(builder: (context) => HomePage()),
       );
     } else {
-      // Si las credenciales son inválidas, mostramos un mensaje de error
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Credenciales inválidas'),
@@ -39,31 +34,24 @@ class _LoginPageState extends State <LoginPage>{
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[200], // change Color
+      backgroundColor: Colors.orange[200],
       body: SingleChildScrollView(
         child: Center(
-            // change SafeArea
-            child: SizedBox(
-          // add SizedBox
-          width: 400, // ancho 600
-          child: Center(
-            // icono de persona
+          child: SizedBox(
+            width: 400,
             child: Column(
               children: [
                 const SizedBox(
                   height: 40,
                 ),
-                // Icono
                 const Icon(
                   Icons.person,
                   size: 110,
                 ),
-
-                /*   Texto de bienvenida              */
+                  /*   Texto de bienvenida              */
                 const Text(
                   'Bienvenido A MyNapoPizza!',
                   textAlign: TextAlign.center,
@@ -74,7 +62,7 @@ class _LoginPageState extends State <LoginPage>{
                 ),
                 const SizedBox(height: 30),
                 // Usuario TextField
-                 Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
@@ -90,7 +78,7 @@ class _LoginPageState extends State <LoginPage>{
                   ),
                 ),
                 // Contraseña TextField
-                 Padding(
+                Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
                   child: TextField(
@@ -108,7 +96,7 @@ class _LoginPageState extends State <LoginPage>{
                 ),
                 // Botón de inicio de sesión
                 GestureDetector(
-                  onTap:  _BetaLogin,
+                  onTap: () => _BetaLogin(context),
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.symmetric(
@@ -129,27 +117,18 @@ class _LoginPageState extends State <LoginPage>{
                     ),
                   ),
                 ),
-                TextButton(
-                  onPressed: () => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const RegistrationPage()),
-                  ),
-                  child: const Text(
-                    'Registrar usuario',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                ElevatedButton.icon(
-                  onPressed: null,
-                  icon: const Icon(Icons.door_front_door_rounded),
-                  label: const Text(
-                    'Login',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: const ButtonStyle(
-                    fixedSize: MaterialStatePropertyAll(Size(200, 40)),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton.icon(
+                    onPressed: null,
+                    icon: const Icon(Icons.door_front_door_rounded),
+                    label: const Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: Size(200, 40),
+                    ),
                   ),
                 ),
                 Padding(
@@ -173,11 +152,8 @@ class _LoginPageState extends State <LoginPage>{
               ],
             ),
           ),
-
-        )
         ),
       ),
     );
   }
 }
-
