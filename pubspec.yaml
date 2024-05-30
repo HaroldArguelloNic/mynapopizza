@@ -38,6 +38,9 @@ dependencies:
   #Agregando google font
   google_fonts: ^6.2.1
 
+  mysql_client: ^0.0.27
+  http: ^1.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
