@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/sidebar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -18,6 +19,7 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+        drawer: const SideBar(),
         appBar: AppBar(
           title: const Text(
             'MyNapoPizza',
