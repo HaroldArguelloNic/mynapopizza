@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mynapopizza/page/sidebar_layout.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
 
@@ -13,16 +14,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final db = PizzaConnect(); //se asigna la conexion a una variable final
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-
+  final passwordController = TextEditingController(); 
+  
   void insertData() async {
     db.pizzaConnect().then((conn) {
       String sqlQuery =
           'insert into Clientes (name, email, password ) values(?,?,?)';
+      
       conn.execute(
           sqlQuery,
-          [nameController.text, emailController.text, passwordController.text]
-              as Map<String, dynamic>?);
+          [nameController.text, emailController.text, passwordController.text] as Map<String, dynamic>?);
       setState(() {});
     });
   }
@@ -62,19 +63,20 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       label: 'Nombre de Usuario',
                       placeholder: 'Nombre',
                       icon: Icons.person_2_rounded,
-                      controller: nameController,
+                      //controller: nameController,
                     ),
                     const TextFieldWidget(
                       label: 'correo electronico',
                       placeholder: 'Email',
                       icon: Icons.mail,
-                      controller: emailController,
+                      //controller: emailController,
                     ),
                     const TextFieldWidget(
                       label: 'password',
                       placeholder: 'Contraseña',
                       icon: Icons.lock,
-                      controller: passwordController,
+                      //controller: passwordController,
+                      
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
@@ -102,6 +104,7 @@ class TextFieldWidget extends StatelessWidget {
   final IconData? icon;
   final bool isTextArea;
   final TextEditingController? controller;
+  
 
 // ignore: use_super_parameters
   const TextFieldWidget(
@@ -110,7 +113,8 @@ class TextFieldWidget extends StatelessWidget {
       required this.placeholder,
       this.icon,
       this.isTextArea = false,
-      this.controller})
+      this.controller
+      })
       : super(key: key);
 
   @override
