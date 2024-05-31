@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/sidebar.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
   @override
@@ -20,76 +19,92 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Scaffold(
         drawer: Drawer(
-          child:ListView(
+          child: ListView(
             padding: EdgeInsets.zero,
-            children:  [
+            children: [
               const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(224, 132, 46, 0.71),
-                ),
-                child: Text('My Usuario')
-                ),
-                
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  
-                  child: ListTile(
-                  
-                    leading: const Icon(Icons.home, color: Colors.blue,),
-                    title: const Text('home', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
-                    onTap: () => Navigator.pop(context),
-
-                  
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(224, 132, 46, 0.71),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                  
-                    leading: const Icon(Icons.favorite_rounded, color: Colors.red,),
-                    title: const Text('Favoritos', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
-                    onTap: () => Navigator.pop(context),
-                  
+                  child: Text('My Usuario')),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.home,
+                    color: Colors.blue,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                  
-                    leading: const Icon(Icons.local_pizza,  color: Colors.amber,),
-                    title: const Text('Producto', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
-                    onTap: () => Navigator.pop(context),
-                  
+                  title: const Text(
+                    'home',
+                    style: TextStyle(color: Colors.indigo),
+                    textAlign: TextAlign.center,
                   ),
+                  onTap: () => Navigator.pop(context),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                  
-                    leading: const Icon(Icons.playlist_add_check_circle, color: Colors.green,),
-                    title: const Text('Mi Orden', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
-                    onTap: () => Navigator.pop(context),
-                  
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.favorite_rounded,
+                    color: Colors.red,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: ListTile(
-                  
-                    leading: const Icon(Icons.man, color: Colors.purple,),
-                    title: const Text('Mi Perfil', style: TextStyle(color: Colors.indigo),textAlign: TextAlign.center,),
-                    onTap: () => Navigator.pop(context),
-                  
+                  title: const Text(
+                    'Favoritos',
+                    style: TextStyle(color: Colors.indigo),
+                    textAlign: TextAlign.center,
                   ),
+                  onTap: () => Navigator.pop(context),
                 ),
-
-
-
-          ],
-
-          ) ,
-          
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.local_pizza,
+                    color: Colors.amber,
+                  ),
+                  title: const Text(
+                    'Producto',
+                    style: TextStyle(color: Colors.indigo),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.playlist_add_check_circle,
+                    color: Colors.green,
+                  ),
+                  title: const Text(
+                    'Mi Orden',
+                    style: TextStyle(color: Colors.indigo),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.man,
+                    color: Colors.purple,
+                  ),
+                  title: const Text(
+                    'Mi Perfil',
+                    style: TextStyle(color: Colors.indigo),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ),
+            ],
           ),
+        ),
         backgroundColor: Colors.transparent,
         //drawer:SideBar(),
         appBar: AppBar(
@@ -119,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _buildTypeCard('Type 1'),
+                    _buildTypeCard('no se un tipo'),
                     _buildTypeCard('Type 2'),
                     _buildTypeCard('Type 3'),
                     _buildTypeCard('Type 4'),
@@ -141,11 +156,11 @@ class _HomePageState extends State<HomePage> {
               //  agregar una columna vertical para las pizzas
               Column(
                 children: [
-                  _buildPizzaCard('Pizza 1','pizzaJamon.jpg'),
+                  _buildPizzaCard('Pizza 1', 'pizzaJamon.jpg'),
                   _buildPizzaCard('Pizza 2', 'pizzaHawaina.jpg'),
                   _buildPizzaCard('Pizza 3', 'pizzaPeperoni.jpg'),
                   _buildPizzaCard('Pizza 4', 'pizzaSalami.jpg'),
-                  _buildPizzaCard('Pizza 5','PizzasSuperNapo.jpg' ) , 
+                  _buildPizzaCard('Pizza 5', 'PizzasSuperNapo.jpg'),
                   _buildPizzaCard('Pizza 6', 'PizzaFullCarne.jpg'),
                 ],
               ),
@@ -155,6 +170,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 //card para los tipos de pizza
   Widget _buildTypeCard(String type) {
     return Container(
@@ -177,7 +193,6 @@ class _HomePageState extends State<HomePage> {
           type,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
-        
       ),
     );
   }
@@ -202,13 +217,11 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       child: Row(
-        
         children: [
-
           //const Icon(Icons.local_pizza, size: 60, color: Colors.orange),
           //const SizedBox(width: 55.0, height: 180,),
           _imagenPizza(pizzaimage),
-          
+
           Text(
             pizza,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -218,18 +231,16 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
-Widget _imagenPizza(String pizzaimage){
-  return SizedBox(
-    height: 200,
-    width: 200,
-    child: Image(
-      fit: BoxFit.scaleDown,
-      image: AssetImage('assets/$pizzaimage'),
-      width: 200,
+  Widget _imagenPizza(String pizzaimage) {
+    return SizedBox(
       height: 200,
-    ),
-  );
-
-}
+      width: 200,
+      child: Image(
+        fit: BoxFit.scaleDown,
+        image: AssetImage('assets/$pizzaimage'),
+        width: 200,
+        height: 200,
+      ),
+    );
+  }
 }
