@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    _buildTypeCard('no se un tipo'),
+                    _buildTypeCard('Pizza Grande'),
                     _buildTypeCard('Type 2'),
                     _buildTypeCard('Type 3'),
                     _buildTypeCard('Type 4'),
