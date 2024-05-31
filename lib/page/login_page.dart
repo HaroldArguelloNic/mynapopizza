@@ -3,20 +3,19 @@ import 'package:mynapopizza/page/home_page.dart';
 
 import 'package:mynapopizza/page/registration_page.dart';
 
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usuarioController = TextEditingController();
   final TextEditingController _contraseniaController = TextEditingController();
 
-    //Prueba de login falta implementacion con datos
+  //Prueba de login falta implementacion con datos
   void _BetaLogin(BuildContext context) {
-    
     String usuario = _usuarioController.text;
     String contrasena = _contraseniaController.text;
 
@@ -53,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                   Icons.person,
                   size: 110,
                 ),
-                  /*   Texto de bienvenida              */
+                /*   Texto de bienvenida              */
                 const Text(
                   'Bienvenido A MyNapoPizza!',
                   textAlign: TextAlign.center,
@@ -65,8 +64,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30),
                 // Usuario TextField
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 25.0, vertical: 10.0),
                   child: TextField(
                     controller: _usuarioController,
                     decoration: const InputDecoration(
@@ -81,8 +80,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 // Contraseña TextField
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10.0),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 25.0, vertical: 10.0),
                   child: TextField(
                     controller: _contraseniaController,
                     obscureText: true,
@@ -98,9 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 // Botón de inicio de sesión
                 ElevatedButton.icon(
-                  onPressed: () => _BetaLogin(context)
-
-                  ,
+                  onPressed: () => _BetaLogin(context),
                   icon: const Icon(Icons.door_front_door_rounded),
                   label: const Text(
                     'Login',
