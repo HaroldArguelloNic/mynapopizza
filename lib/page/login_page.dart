@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                     controller: _contraseniaController,
                     obscureText: true,
                     decoration: const InputDecoration(
-                      labelText: 'Contraseña Aqui',
+                      labelText: 'Contraseña',
                       enabledBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black54),
                       ),
