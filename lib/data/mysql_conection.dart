@@ -1,18 +1,24 @@
 import 'package:mysql_client/mysql_client.dart';
-import 'package:http/http.dart' as http;
 
-Future<void> pizzaConnect() async {
+class PizzaConnect {
+  static String host = '172.17.0.1',
+  user = 'PizzaApp',
+  db = 'pizzzanapo',
+  password = 'mynapo2024';
+  static int port = 3306;
 
-final conn =  await MySQLConnection.createConnection(
+  PizzaConnect(); 
+
+Future<MySQLConnection> pizzaConnect() async {
+
+final conn =  MySQLConnection.createConnection(
     host: "172.17.0.1",
      port: 3306,
       userName: "PizzaApp",
        password: "mynapo2024",
        databaseName: "pizzanapo");
 
-await conn.connect();
-}
+return await conn;
+}}
 
- 
-  
 
