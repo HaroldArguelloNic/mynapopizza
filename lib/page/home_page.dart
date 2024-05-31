@@ -2,12 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/sidebar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
+// Función para mostrar un toast
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: Text("Función en desarrollo"),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                   decoration: BoxDecoration(
                     color: Color.fromRGBO(224, 132, 46, 0.71),
                   ),
-                  child: Text('My Usuario')),
+                  child: Text('Menu')),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ListTile(
@@ -39,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pushNamed(context,'/home'),
                 ),
               ),
               Padding(
@@ -54,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pushNamed(context,'/favoritos'),
                 ),
               ),
               Padding(
@@ -69,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pushNamed(context,'/producto'),
                 ),
               ),
               Padding(
@@ -84,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pushNamed(context,'/miorden'),
                 ),
               ),
               Padding(
@@ -99,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => Navigator.pushNamed(context,'/miperfil'),
                 ),
               ),
             ],
@@ -225,6 +237,15 @@ class _HomePageState extends State<HomePage> {
           Text(
             pizza,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(width: 20),
+          // Botón de "Me gusta" (corazón)
+          IconButton(
+            icon: Icon(Icons.favorite_outline),
+            color: Colors.red,
+            onPressed: () {
+              _showToast(context); // Mostrar toast cuando se hace clic
+            },
           ),
         ],
       ),

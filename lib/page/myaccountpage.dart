@@ -53,14 +53,6 @@ class MyAccountBody extends StatelessWidget {
             },
             child: Text('Cerrar Sesión'),
           ),
-          ElevatedButton(
-            onPressed:(){
-              Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) =>const HomePage()),
-      );
-          },
-          child: Text('Volver'),)
         ],
       ),
     );
