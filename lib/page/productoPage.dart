@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProductoPage extends StatefulWidget {
-  const ProductoPage({Key? key}) : super(key: key);
+  const ProductoPage({super.key});
 
   @override
   _ProductoPageState createState() => _ProductoPageState();
@@ -63,7 +63,7 @@ class _ProductoPageState extends State<ProductoPage> {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.edit, color: Colors.blue),
+            icon: const Icon(Icons.edit, color: Colors.blue),
             onPressed: () => _editPizza(index),
           ),
         ],
@@ -102,7 +102,7 @@ class _ProductoPageState extends State<ProductoPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _registerPizza,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         tooltip: 'Registrar Nueva Pizza',
       ),
     );

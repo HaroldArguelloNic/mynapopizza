@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatefulWidget {
-  const CartScreen({Key? key}) : super(key: key);
+  const CartScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CartScreenState createState() => _CartScreenState();
 }
 
@@ -24,13 +25,13 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carrito de Compras'),
+        title: const Text('Carrito de Compras'),
       ),
       body: Column(
         children: [
           // Diseño para mostrar la lista de elementos en el carrito
           cartItems.isEmpty
-              ? Center(child: Text('El carrito está vacío'))
+              ? const Center(child: Text('El carrito está vacío'))
               : Expanded(
                   child: ListView.builder(
                     itemCount: cartItems.length,
@@ -40,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
                         subtitle: Text('\$${cartItems[index]['price']}'),
                         // Diseño del botón para eliminar un elemento del carrito
                         trailing: IconButton(
-                          icon: Icon(Icons.remove_shopping_cart),
+                          icon: const Icon(Icons.remove_shopping_cart),
                           onPressed: () {
                             setState(() {
                               cartItems.removeAt(index);
@@ -62,7 +63,7 @@ class _CartScreenState extends State<CartScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               'Total Pedido: ${cartItems.isNotEmpty ? '\$${getTotalPrice()}' : '0'}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
         ],

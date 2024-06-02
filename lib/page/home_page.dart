@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/page/sidebar.dart';
+
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
+
 
 class _HomePageState extends State<HomePage> {
 
@@ -13,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text("Función en desarrollo"),
         duration: Duration(seconds: 2),
       ),
@@ -238,10 +240,10 @@ class _HomePageState extends State<HomePage> {
             pizza,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
-          SizedBox(width: 20),
+          const SizedBox(width: 20),
           // Botón de "Me gusta" (corazón)
           IconButton(
-            icon: Icon(Icons.favorite_outline),
+            icon: const Icon(Icons.favorite_outline),
             color: Colors.red,
             onPressed: () {
               _showToast(context); // Mostrar toast cuando se hace clic

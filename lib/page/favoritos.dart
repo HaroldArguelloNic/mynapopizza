@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class FavoritosPage extends StatefulWidget {
-  const FavoritosPage({Key? key}) : super(key: key);
+  const FavoritosPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _FavoritosPageState createState() => _FavoritosPageState();
 }
 
@@ -35,7 +36,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
             // Lista de favoritos (widget mutable)
             Expanded(
               child: favoritos.isEmpty // Si no hay favoritos, mostrar un mensaje
-                  ? Center(
+                  ? const Center(
                       child: Text(
                         'No hay pizzas favoritas',
                         style: TextStyle(fontSize: 16),
@@ -45,7 +46,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
                       itemCount: favoritos.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          leading: Icon(Icons.favorite, color: Colors.red),
+                          leading: const Icon(Icons.favorite, color: Colors.red),
                           title: Text(favoritos[index]),
                         );
                       },

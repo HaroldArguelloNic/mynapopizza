@@ -7,6 +7,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginPageState createState() => _LoginPageState();
 }
 
@@ -15,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _contraseniaController = TextEditingController();
 
   //Prueba de login falta implementacion con datos
+  // ignore: non_constant_identifier_names
   void _BetaLogin(BuildContext context) {
     String usuario = _usuarioController.text;
     String contrasena = _contraseniaController.text;

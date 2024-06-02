@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mynapopizza/page/sidebar_layout.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
 
@@ -22,8 +21,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           'insert into Clientes (name, email, password ) values(?,?,?)';
       
       conn.execute(
-          sqlQuery,
-          [nameController.text, emailController.text, passwordController.text] as Map<String, dynamic>?);
+          sqlQuery,[nameController.text, emailController.text, passwordController.text] as Map<String, dynamic>?);
       setState(() {});
     });
   }
@@ -52,41 +50,62 @@ class _RegistrationPageState extends State<RegistrationPage> {
             centerTitle: true,
             backgroundColor: Colors.amber,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Center(
+          body: Center( 
+            child: Container(
+              height: 500,
+              width: 500,
+              margin: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10.0),
+              alignment: Alignment.bottomCenter,
+              color: Colors.white,
               child: SizedBox(
-                width: 450,
+                height: 400,
+                width: 300,
+
                 child: Column(
+                  
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const TextFieldWidget(
-                      label: 'Nombre de Usuario',
-                      placeholder: 'Nombre',
-                      icon: Icons.person_2_rounded,
-                      //controller: nameController,
+                    
+                    const Text('Nombre de usuario',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
+                    TextField(
+                     decoration: const InputDecoration(
+                     border: InputBorder.none,
+                     hintText: 'Digite su Nombre',
+                     suffixIcon: Icon(Icons.person_2, color: Colors.red),
+                      ),
+                      controller: nameController,
                     ),
-                    const TextFieldWidget(
-                      label: 'correo electronico',
-                      placeholder: 'Email',
-                      icon: Icons.mail,
-                      //controller: emailController,
+                    const Text('Correo Electronico',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
+                     TextField(
+                     decoration: const InputDecoration(
+                     border: InputBorder.none,
+                     hintText: 'Digite su Email',
+                     suffixIcon: Icon(Icons.mail, color: Colors.red),
+                      ),
+                      
+                      controller: emailController,
                     ),
-                    const TextFieldWidget(
-                      label: 'password',
-                      placeholder: 'Contraseña',
-                      icon: Icons.lock,
-                      //controller: passwordController,
+                    const Text('Contraseña',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
+                     TextField(
+                      obscureText: true,
+                       decoration: const InputDecoration(
+                     border: InputBorder.none,
+                     hintText: 'Digite un Password',
+                     suffixIcon: Icon(Icons.lock, color: Colors.red),
+                      ),
+                      controller: passwordController,
                       
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton(
-                        child: const Text('Pagina Principal'),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SideBarLayout()),
-                        ),
+                        child: const Text('Registrarse'),
+                        onPressed: () {
+                        if(emailController.text != "" && passwordController.text != "" && nameController.text != "" ) {
+                          insertData(); }
+                        
+                        },
                       ),
                     ),
                   ],
@@ -98,53 +117,58 @@ class _RegistrationPageState extends State<RegistrationPage> {
       );
 }
 
-class TextFieldWidget extends StatelessWidget {
-  final String label;
-  final String placeholder;
-  final IconData? icon;
-  final bool isTextArea;
-  final TextEditingController? controller;
+// class TextFieldWidget extends StatefulWidget {
+//   final String label;
+//   final String placeholder;
+//   final IconData? icon;
+//   final bool isTextArea;
+//   final TextEditingController? controller;
   
 
-// ignore: use_super_parameters
-  const TextFieldWidget(
-      {Key? key,
-      required this.label,
-      required this.placeholder,
-      this.icon,
-      this.isTextArea = false,
-      this.controller
-      })
-      : super(key: key);
+// // ignore: use_super_parameters
+//   const TextFieldWidget(
+//       {Key? key,
+//       required this.label,
+//       required this.placeholder,
+//       this.icon,
+//       this.isTextArea = false,
+//       this.controller
+//       })
+//       : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(label,
-              style: const TextStyle(color: Colors.green, fontSize: 18)),
-          const SizedBox(height: 5.0),
-          Container(
-            padding: const EdgeInsets.only(left: 10.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: TextField(
-              controller: controller,
-              maxLines: isTextArea ? 6 : null,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: placeholder,
-                suffixIcon: icon != null ? Icon(icon, color: Colors.red) : null,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   State<TextFieldWidget> createState() => _TextFieldWidgetState();
+// }
+
+// class _TextFieldWidgetState extends State<TextFieldWidget> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       color: Colors.white,
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.stretch,
+//         children: [
+//           Text(widget.label,
+//               style: const TextStyle(color: Colors.green, fontSize: 18)),
+//           const SizedBox(height: 5.0),
+//           Container(
+//             padding: const EdgeInsets.only(left: 10.0),
+//             decoration: BoxDecoration(
+//               border: Border.all(color: Colors.black),
+//               borderRadius: BorderRadius.circular(10.0),
+//             ),
+//             child: TextField(
+//               controller: widget.controller,
+//               maxLines: widget.isTextArea ? 6 : null,
+//               decoration: InputDecoration(
+//                 border: InputBorder.none,
+//                 hintText: widget.placeholder,
+//                 suffixIcon: widget.icon != null ? Icon(widget.icon, color: Colors.red) : null,
+//               ),
+//             ),
+//           )
+//         ],
+//       ),
+//     );
+//   }
+// }

@@ -18,13 +18,13 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context){
     return   MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  SplashScreen(),
+      home:  const SplashScreen(),
        routes: {
-      '/home': (context) => HomePage(),
-      '/favoritos': (context) => FavoritosPage(),
-      '/producto': (context) => ProductoPage(),
-      '/miorden': (context) => CartScreen(),
-      '/miperfil': (context) => MyAccountPage(),
+      '/home': (context) => const HomePage(),
+      '/favoritos': (context) => const FavoritosPage(),
+      '/producto': (context) => const ProductoPage(),
+      '/miorden': (context) => const CartScreen(),
+      '/miperfil': (context) => const MyAccountPage(),
     },
     );
   }
