@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -8,9 +7,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage> {
-
 // Función para mostrar un toast
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
@@ -53,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context,'/home'),
+                  onTap: () => Navigator.pushNamed(context, '/home'),
                 ),
               ),
               Padding(
@@ -68,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context,'/favoritos'),
+                  onTap: () => Navigator.pushNamed(context, '/favoritos'),
                 ),
               ),
               Padding(
@@ -83,7 +80,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context,'/producto'),
+                  onTap: () => Navigator.pushNamed(context, '/producto'),
                 ),
               ),
               Padding(
@@ -98,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context,'/miorden'),
+                  onTap: () => Navigator.pushNamed(context, '/miorden'),
                 ),
               ),
               Padding(
@@ -113,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context,'/miperfil'),
+                  onTap: () => Navigator.pushNamed(context, '/miperfil'),
                 ),
               ),
             ],
@@ -149,10 +146,10 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     _buildTypeCard('Pizza Grande'),
-                    _buildTypeCard('Type 2'),
-                    _buildTypeCard('Type 3'),
-                    _buildTypeCard('Type 4'),
-                    _buildTypeCard('Type 5'),
+                    _buildTypeCard('Pizza Pequeña'),
+                    _buildTypeCard('Pizza Mediana'),
+                    _buildTypeCard('Pizza Especial'),
+                    _buildTypeCard('Personalizada'),
                   ],
                 ),
               ),
