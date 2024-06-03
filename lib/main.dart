@@ -11,22 +11,21 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context){
-    return   MaterialApp(
+  Widget build(BuildContext context) {
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:  const SplashScreen(),
-       routes: {
-      '/home': (context) => const HomePage(),
-      '/favoritos': (context) => const FavoritosPage(),
-      '/producto': (context) => const ProductoPage(),
-      '/miorden': (context) => const CartScreen(),
-      '/miperfil': (context) => const MyAccountPage(),
-    },
+      home: const SplashScreen(),
+      routes: {
+        '/inicio': (context) => const HomePage(),
+        '/favoritos': (context) => const FavoritosPage(),
+        '/producto': (context) => const ProductoPage(),
+        '/miorden': (context) => const CartScreen(),
+        '/miperfil': (context) => const MyAccountPage(),
+      },
     );
   }
 }
- 
