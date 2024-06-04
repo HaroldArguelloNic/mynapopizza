@@ -1,5 +1,5 @@
+
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/page/sidebar_layout.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -16,13 +16,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final passwordController = TextEditingController(); 
   
   void insertData() async {
-    db.pizzaConnect().then((conn) {
+    db.pizzaConnect().then((conn) async {
       String sqlQuery =
           'insert into Clientes (name, email, password ) values(?,?,?)';
       
-      conn.execute(
+      await conn.execute(
           sqlQuery,[nameController.text, emailController.text, passwordController.text] as Map<String, dynamic>?);
+
       setState(() {});
+      
     });
   }
 
@@ -103,9 +105,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         child: const Text('Registrarse'),
                         onPressed: () {
                         if(emailController.text != "" && passwordController.text != "" && nameController.text != "" ) {
-                          insertData(); }
+                          if(PizzaConnect.db == 'success') {
+                             const SnackBar(content: Text('conexion exitosa'));
+        
+                            insertData();
+                          }
+                                                    
                         
+                        }
                         },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: ElevatedButton(
+                        child: const Text('Conectar al servidor'),
+                        onPressed: () {
+
+
+                        }
+                        
                       ),
                     ),
                   ],

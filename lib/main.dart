@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
-
 import 'page/cart.dart';
 import 'page/favoritos.dart';
 import 'page/home_page.dart';
 import 'page/myaccountpage.dart';
-import 'page/productoPage.dart';
+import 'page/producto_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

@@ -4,7 +4,7 @@ class ProductoPage extends StatefulWidget {
   const ProductoPage({super.key});
 
   @override
-  _ProductoPageState createState() => _ProductoPageState();
+  State<ProductoPage> createState() => _ProductoPageState();
 }
 
 class _ProductoPageState extends State<ProductoPage> {

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "971580789222",
+    "project_id": "my-napo-pizza",
+    "storage_bucket": "my-napo-pizza.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971580789222:android:a3ecc756d1a90fb0df0627",
+        "android_client_info": {
+          "package_name": "com.example.mynapopizza"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmA_3osegQ9bfQG4G6dp6fLEaI44CbiEg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

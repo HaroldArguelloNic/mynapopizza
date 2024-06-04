@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/page/home_page.dart';
 
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage({super.key});

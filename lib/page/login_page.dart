@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(color: Colors.black),
                   ),
                   style: const ButtonStyle(
-                    fixedSize: MaterialStatePropertyAll(Size(200, 40)),
+                    fixedSize: WidgetStatePropertyAll(Size(200, 40)),
                   ),
                 ),
                 Padding(
