@@ -40,7 +40,8 @@ dependencies:
 
   mysql_client: ^0.0.27
   http: ^1.2.0
-  firebase_core: ^2.32.0
+  firebase_core: ^3.0.0
+  cloud_firestore: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -75,7 +76,7 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
-  # To add custom fonts to your application, add a fonts section here,
+  # To add custom nts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
