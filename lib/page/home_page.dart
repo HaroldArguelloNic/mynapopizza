@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/home'),
+                  onTap: () => Navigator.pushNamed(context,'/home'),
                 ),
               ),
               Padding(

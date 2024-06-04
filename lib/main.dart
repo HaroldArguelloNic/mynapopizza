@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       routes: {
-        '/inicio': (context) => const HomePage(),
+        '/home': (context) => const HomePage(),
         '/favoritos': (context) => const FavoritosPage(),
         '/producto': (context) => const ProductoPage(),
         '/miorden': (context) => const CartScreen(),
