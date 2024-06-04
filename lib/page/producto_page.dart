@@ -101,9 +101,12 @@ class _ProductoPageState extends State<ProductoPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        
         onPressed: _registerPizza,
-        child: const Icon(Icons.add),
+      
         tooltip: 'Registrar Nueva Pizza',
+       
+        child: const Icon(Icons.add),
       ),
     );
   }
