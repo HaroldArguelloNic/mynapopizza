@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
+import 'package:mynapopizza/models/usuario.dart';
+import 'package:mynapopizza/services/usuarioservice.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -10,11 +12,14 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  
   final db = PizzaConnect(); //se asigna la conexion a una variable final
+  
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController(); 
-  
+  final numeroController = TextEditingController();
+  /*
   void insertData() async {
     db.pizzaConnect().then((conn) async {
       String sqlQuery =
@@ -27,6 +32,33 @@ class _RegistrationPageState extends State<RegistrationPage> {
       
     });
   }
+  */
+
+void registrarUsuario() async {
+  // Verifica que ningún campo esté vacío
+  if (nameController.text.isEmpty || emailController.text.isEmpty || passwordController.text.isEmpty) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Por favor, complete todos los campos')));
+    return;
+  }
+
+  // Crea el objeto Usuario con los datos de los controladores
+  Usuario usuario = Usuario(
+    nombre: nameController.text,
+    correoElectronico: emailController.text,
+    contrasenia: passwordController.text,
+    numeroTelefono: numeroController.text,
+  );
+
+  // Intenta registrar el usuario y espera la respuesta
+  bool registroExitoso = await agregarUsuario(usuario);
+
+  // Verifica si el registro fue exitoso
+  if (registroExitoso) {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Usuario registrado exitosamente')));
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error al registrar usuario')));
+  }
+}
 
   @override
   void dispose() {
@@ -34,6 +66,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    numeroController.dispose();
   }
 
   @override
@@ -99,20 +132,33 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       controller: passwordController,
                       
                     ),
+                    const Text('Numero Telefono',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
+                     TextField(
+                      obscureText: true,
+                       decoration: const InputDecoration(
+                     border: InputBorder.none,
+                     hintText: 'Digite su Numero de Telefono',
+                     suffixIcon: Icon(Icons.lock, color: Colors.red),
+                      ),
+                      controller: numeroController,
+                      
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton(
                         child: const Text('Registrarse'),
                         onPressed: () {
+                          /*
                         if(emailController.text != "" && passwordController.text != "" && nameController.text != "" ) {
                           if(PizzaConnect.db == 'success') {
                              const SnackBar(content: Text('conexion exitosa'));
         
-                            insertData();
+                            //insertData();
                           }
                                                     
                         
-                        }
+                        }*/
+
                         },
                       ),
                     ),
