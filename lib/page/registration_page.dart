@@ -158,7 +158,7 @@ void registrarUsuario() async {
                                                     
                         
                         }*/
-
+                        registrarUsuario();
                         },
                       ),
                     ),
