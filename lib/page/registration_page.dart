@@ -89,8 +89,8 @@ void registrarUsuario() async {
             child: Container(
               height: 500,
               width: 500,
-              margin: const EdgeInsets.all(10.0),
-              padding: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               alignment: Alignment.bottomCenter,
               color: Colors.white,
               child: SizedBox(
@@ -146,7 +146,7 @@ void registrarUsuario() async {
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton(
                         child: const Text('Registrarse'),
-                        onPressed: () {
+                        onPressed: () async {
                           /*
                         if(emailController.text != "" && passwordController.text != "" && nameController.text != "" ) {
                           if(PizzaConnect.db == 'success') {
@@ -157,10 +157,11 @@ void registrarUsuario() async {
                                                     
                         
                         }*/
-                        registrarUsuario();
+                         registrarUsuario();
                         },
                       ),
                     ),
+                    /*
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton(
@@ -172,6 +173,7 @@ void registrarUsuario() async {
                         
                       ),
                     ),
+                    */
                   ],
                 ),
               ),
