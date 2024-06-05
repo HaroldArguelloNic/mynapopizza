@@ -20,6 +20,7 @@ class Usuario {
     return {
       'nombre': nombre,
       'correoElectronico': correoElectronico,
+      'contrasenia':contrasenia,
       'numeroTelefono': numeroTelefono,
     };
   }

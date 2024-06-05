@@ -85,16 +85,16 @@ void registrarUsuario() async {
             centerTitle: true,
             backgroundColor: Colors.amber,
           ),
-          body: Center( 
+          body: SingleChildScrollView( 
             child: Container(
-              height: 500,
+              height: 600,
               width: 500,
               margin: const EdgeInsets.all(8.0),
               padding: const EdgeInsets.all(8.0),
               alignment: Alignment.bottomCenter,
               color: Colors.white,
               child: SizedBox(
-                height: 400,
+                height: 500,
                 width: 300,
 
                 child: Column(
