@@ -87,6 +87,7 @@ void registrarUsuario() async {
           ),
           body: SingleChildScrollView( 
             child: Container(
+              
               height: 600,
               width: 500,
               margin: const EdgeInsets.all(8.0),
@@ -94,9 +95,10 @@ void registrarUsuario() async {
               alignment: Alignment.bottomCenter,
               color: Colors.white,
               child: SizedBox(
+
                 height: 500,
                 width: 300,
-
+              
                 child: Column(
                   
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -104,19 +106,33 @@ void registrarUsuario() async {
                     
                     const Text('Nombre de usuario',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
                     TextField(
-                     decoration: const InputDecoration(
-                     border: InputBorder.none,
+                     decoration: InputDecoration(
+                     border: InputBorder.none,        
+                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
+                     ),
+                     filled: true,
+                     fillColor: Colors.amberAccent,
+                     focusColor: Colors.cyanAccent,
                      hintText: 'Digite su Nombre',
-                     suffixIcon: Icon(Icons.person_2, color: Colors.red),
+                     suffixIcon: const Icon(Icons.person_2, color: Colors.red),
                       ),
                       controller: nameController,
                     ),
                     const Text('Correo Electronico',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
                      TextField(
-                     decoration: const InputDecoration(
+                     decoration: InputDecoration(
                      border: InputBorder.none,
+                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
+                     ),
+                     filled: true,
+                     fillColor: Colors.amberAccent,
+                     focusColor: Colors.cyanAccent,
                      hintText: 'Digite su Email',
-                     suffixIcon: Icon(Icons.mail, color: Colors.red),
+                     suffixIcon: const Icon(Icons.mail, color: Colors.red),
                       ),
                       
                       controller: emailController,
@@ -124,20 +140,34 @@ void registrarUsuario() async {
                     const Text('Contraseña',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
                      TextField(
                       obscureText: true,
-                       decoration: const InputDecoration(
+                       decoration: InputDecoration(
                      border: InputBorder.none,
+                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
+                     ),
+                     filled: true,
+                     fillColor: Colors.amberAccent,
+                     focusColor: Colors.cyanAccent,
                      hintText: 'Digite un Password',
-                     suffixIcon: Icon(Icons.lock, color: Colors.red),
+                     suffixIcon: const Icon(Icons.lock, color: Colors.red),
                       ),
                       controller: passwordController,
                       
                     ),
                     const Text('Numero Telefono',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
                      TextField(
-                       decoration: const InputDecoration(
+                       decoration: InputDecoration(
                      border: InputBorder.none,
+                     enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.circular(30),
+                     ),
+                     filled: true,
+                     fillColor: Colors.amberAccent,
+                     focusColor: Colors.cyanAccent,
                      hintText: 'Digite su Numero de Telefono',
-                     suffixIcon: Icon(Icons.phone_in_talk_sharp, color: Colors.red),
+                     suffixIcon: const Icon(Icons.phone_in_talk_sharp, color: Colors.red),
                       ),
                       controller: numeroController,
                       
