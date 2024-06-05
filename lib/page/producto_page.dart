@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/pizza_form.dart';
 
 class ProductoPage extends StatefulWidget {
   const ProductoPage({super.key});
@@ -18,11 +19,17 @@ class _ProductoPageState extends State<ProductoPage> {
   }
 
   void _registerPizza() {
-    // Lógica para registrar una nueva pizza Falta desarrollo
-    setState(() {
-      _showToast(context, "Desarrollo del formulario en proceso");
-    });
-  }
+  // Abre el formulario para registrar una nueva pizza
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: PizzaForm(),
+      );
+    },
+  );
+}
+
 
   void _showToast(BuildContext context, String message) {
     final scaffold = ScaffoldMessenger.of(context);
