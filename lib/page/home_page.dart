@@ -113,6 +113,21 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => Navigator.pushNamed(context, '/miperfil'),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.man,
+                    color: Colors.lightBlue,
+                  ),
+                  title: const Text(
+                    'Usuarios',
+                    style: TextStyle(color: Colors.lightBlue),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () => Navigator.pushNamed(context, '/usuarios'),
+                ),
+              ),
             ],
           ),
         ),

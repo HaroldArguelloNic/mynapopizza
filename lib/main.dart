@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
+import 'package:mynapopizza/page/usuarios_page.dart';
 import 'page/cart.dart';
 import 'page/favoritos.dart';
 import 'page/home_page.dart';
@@ -7,6 +8,7 @@ import 'page/myaccountpage.dart';
 import 'page/producto_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+
 
 
 Future<void> main() async {
@@ -31,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/producto': (context) => const ProductoPage(),
         '/miorden': (context) => const CartScreen(),
         '/miperfil': (context) => const MyAccountPage(),
+        '/usuarios' : (context) => const UsuariosPage(),
       },
     );
   }
