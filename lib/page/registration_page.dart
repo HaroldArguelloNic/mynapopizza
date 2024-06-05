@@ -134,11 +134,10 @@ void registrarUsuario() async {
                     ),
                     const Text('Numero Telefono',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
                      TextField(
-                      obscureText: true,
                        decoration: const InputDecoration(
                      border: InputBorder.none,
                      hintText: 'Digite su Numero de Telefono',
-                     suffixIcon: Icon(Icons.lock, color: Colors.red),
+                     suffixIcon: Icon(Icons.phone_in_talk_sharp, color: Colors.red),
                       ),
                       controller: numeroController,
                       
