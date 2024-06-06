@@ -7,11 +7,6 @@ import 'package:mynapopizza/services/obtener_imagen.dart';
 import 'package:mynapopizza/services/pizza_service.dart';
 import 'package:mynapopizza/services/subir_imagen.dart';
 
-// Supongamos que estas funciones están definidas en otro lugar de tu código
-// Future<XFile?> getImage() async { ... }
-// Future<bool> uploadImage(File image) async { ... }
-// Future<bool> agregarPizza(Pizza pizza) async { ... }
-
 class PizzaForm extends StatefulWidget {
   const PizzaForm({super.key});
 
