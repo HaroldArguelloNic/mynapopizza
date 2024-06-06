@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/pizza_form.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
 import 'package:mynapopizza/page/usuarios_page.dart';
 import 'package:mynapopizza/services/push_notification.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         '/miorden': (context) => const CartScreen(),
         '/miperfil': (context) => const MyAccountPage(),
         '/usuarios' : (context) => const UsuariosPage(),
+        '/formPizza':(context) => const PizzaForm(),
       },
     );
   }

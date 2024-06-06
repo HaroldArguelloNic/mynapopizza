@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/services/firebase_service.dart';
 
-
 class UsuariosPage extends StatefulWidget {
-  const UsuariosPage({super.key});
+  const UsuariosPage({Key? key}) : super(key: key);
 
   @override
   State<UsuariosPage> createState() => _UsuariosPageState();
@@ -16,26 +14,46 @@ class _UsuariosPageState extends State<UsuariosPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Usuarios'),
+        leading: null,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.person),
+          ),
+        ],
       ),
-      body: FutureBuilder (
+      body: FutureBuilder<List<Map<String, dynamic>>>(
         future: getUsuarios(),
-        builder: ((context, snapshot) {
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data?.length,
-              itemBuilder: (context,index) {
-                return Text(snapshot.data?[index]['nombre']);
-              },
-            );
-
-          } else {
+        builder: (context, AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            List<Map<String, dynamic>> usuarios = snapshot.data ?? [];
+            return ListView.builder(
+              itemCount: usuarios.length,
+              itemBuilder: (context, index) {
+                final usuario = usuarios[index];
+                return Card(
+                  margin: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.grey,
+                      child: const Icon(Icons.person),
+                    ),
+                    title: Text(usuario['nombre'] ?? ''),
+                    subtitle: Text(usuario['correoElectronico'] ?? ''),
+                  ),
+                );
+              },
+            );
           }
-            
-        }),
- 
+        },
       ),
     );
   }

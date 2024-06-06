@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
 import 'package:mynapopizza/models/usuario.dart';
-import 'package:mynapopizza/services/usuarioservice.dart';
+import 'package:mynapopizza/services/usuario_service.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -188,6 +188,7 @@ void registrarUsuario() async {
                         
                         }*/
                          registrarUsuario();
+                         
                         },
                       ),
                     ),

@@ -24,6 +24,7 @@ class ArticuloCarrito {
             rebanadas: map["pizza"]["rebanadas"],
             tamanio: map["pizza"]["tamaño"],
             descripcion: map["pizza"]["descripcion"],
+            imageUrl: map["pizza"]["imagenUrl"],
           ),
         cantidad = map["cantidad"];
 }

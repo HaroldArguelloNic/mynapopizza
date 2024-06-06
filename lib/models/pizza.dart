@@ -7,6 +7,7 @@ class Pizza {
   final int rebanadas;
   final String tamanio;
   final String descripcion;
+  final String imageUrl;
 
   Pizza({
     this.id,
@@ -15,6 +16,7 @@ class Pizza {
     required this.rebanadas,
     required this.tamanio,
     required this.descripcion,
+    required this.imageUrl,
   });
 
   // Convierte el objto o clase pizza a un map.
@@ -25,6 +27,7 @@ class Pizza {
       'rebanadas': rebanadas,
       'tamanio': tamanio,
       'descripcion': descripcion,
+      'imageUrl':imageUrl,
     };
   }
 
@@ -35,5 +38,6 @@ class Pizza {
         precio = doc.data()!["precio"],
         rebanadas = doc.data()!["rebanadas"],
         tamanio = doc.data()!["tamanio"],
-        descripcion = doc.data()!["descripcion"];
+        descripcion = doc.data()!["descripcion"],
+        imageUrl= doc.data()!['imageUrl'];
 }
