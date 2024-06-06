@@ -14,22 +14,18 @@ Future<bool> agregarPizza(Pizza pizza) async {
   }
 }
 
-FirebaseFirestore db = FirebaseFirestore.instance;
-
-Future<List> listaPizzas() async {
-
-try {
-  List pizzas = [];
-  CollectionReference collectionReferenceUsuarios = db.collection('pizzas');
-  QuerySnapshot queryUsuarios = await collectionReferenceUsuarios.get();
-  queryUsuarios.docs.forEach((documento) {
-    pizzas.add(documento.data());
-  });
-  return pizzas;
-} catch (e) {
-  // Manejo de errores
-  print("Ocurrió un error: $e");
-  return []; 
-}
-
+Future<List<Map<String, dynamic>>> listaPizzas() async {
+  try {
+    List<Map<String, dynamic>> pizzas = [];
+    CollectionReference collectionReferencePizzas = _db.collection('pizzas');
+    QuerySnapshot queryPizzas = await collectionReferencePizzas.get();
+    queryPizzas.docs.forEach((documento) {
+      pizzas.add(documento.data() as Map<String, dynamic>);
+    });
+    return pizzas;
+  } catch (e) {
+    // Manejo de errores
+    print("Ocurrió un error: $e");
+    return [];
+  }
 }

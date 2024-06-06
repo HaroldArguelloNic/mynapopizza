@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/services/pizza_service.dart';
+import 'package:mynapopizza/services/pizza_service.dart'; // Asegúrate de que este archivo exista y esté correctamente implementado
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.indigo),
                     textAlign: TextAlign.center,
                   ),
-                  onTap: () => Navigator.pushNamed(context,'/home'),
+                  onTap: () => Navigator.pushNamed(context, '/home'),
                 ),
               ),
               Padding(
@@ -181,20 +180,31 @@ class _HomePageState extends State<HomePage> {
               ),
               Column(
                 children: [
-                  FutureBuilder<List<DocumentSnapshot>>(
-                    future: listaPizzas().then((value) => value.cast<DocumentSnapshot<Object>>().toList()),
+                  FutureBuilder<List<Map<String, dynamic>>>(
+                    future: listaPizzas(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtiene la lista de pizzas
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        ); // Muestra un indicador de carga mientras se obtiene la lista de pizzas
                       } else if (snapshot.hasError) {
                         return Text('Error al obtener las pizzas: ${snapshot.error}');
+                      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                        return const Text('No se encontraron pizzas');
                       } else {
                         return Column(
-                          children: snapshot.data!.map((pizza) => _buildPizzaCard(pizza['name'], pizza['imageUrl'])).toList(),
+                          children: snapshot.data!.map((pizza) {
+                            return _buildPizzaCard(
+                              pizza['nombre'] ?? 'Nombre no disponible',
+                              pizza['imageUrl'] ?? 'https://via.placeholder.com/200',
+                              pizza['descripcion'] ?? 'Descripcion no disponible',
+                              pizza['precio'].toString() ?? 'Precio no disponible',
+                            );
+                          }).toList(),
                         );
                       }
                     },
-                  ),
+                  )
                 ],
               ),
             ],
@@ -231,54 +241,87 @@ class _HomePageState extends State<HomePage> {
   }
 
   //card para las  pizzas
-  Widget _buildPizzaCard(String pizza, String pizzaimage) {
-    return Container(
-      alignment: Alignment.center,
-      height: 200,
-      width: 800,
-      margin: const EdgeInsets.all(8.0),
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8.0),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 4.0,
-            offset: Offset(2, 2),
+Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio) {
+  return Container(
+    width: double.infinity,
+    margin: const EdgeInsets.all(8.0),
+    padding: const EdgeInsets.all(8.0),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(8.0),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black26,
+          blurRadius: 4.0,
+          offset: Offset(2, 2),
+        ),
+      ],
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8.0),
+          child: _imagenPizza(imageUrl),
+        ),
+        const SizedBox(width: 10), // Espacio entre la imagen y el contenido
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                nombre,
+                textAlign: TextAlign.center, // Centra el texto
+                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 5), // Espacio entre el nombre y el precio
+              Text(
+                'Precio: \$${precio}',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.green, // Cambia el color del texto del precio
+                  fontWeight: FontWeight.bold, // Utiliza una fuente en negrita para resaltarlo
+                ),
+              ),
+              const SizedBox(height: 5), // Espacio entre el precio y la descripción
+              Text(
+                'Descripción: ${descripcion}',
+                style: const TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 10), // Espacio entre la descripción y el botón
+              Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  icon: const Icon(Icons.favorite_outline),
+                  color: Colors.red,
+                  onPressed: () {
+                    _showToast(context); // Mostrar toast cuando se hace clic
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        children: [
-          _imagenPizza(pizzaimage),
-          Text(
-            pizza,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(width: 20),
-          // Botón de "Me gusta" (corazón)
-          IconButton(
-                       icon: const Icon(Icons.favorite_outline),
-            color: Colors.red,
-            onPressed: () {
-              _showToast(context); // Mostrar toast cuando se hace clic
-            },
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
-  Widget _imagenPizza(String pizzaimage) {
+
+
+
+
+
+
+
+  Widget _imagenPizza(String pizzaImage) {
     return SizedBox(
       height: 200,
       width: 200,
       child: Image.network(
-        pizzaimage,
+        pizzaImage,
         fit: BoxFit.cover,
       ),
     );
   }
 }
-

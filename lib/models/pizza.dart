@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 
 class Pizza {
   final String? id;
@@ -8,7 +7,7 @@ class Pizza {
   final int rebanadas;
   final String tamanio;
   final String descripcion;
-  final String imagenUrl;
+  final String imageUrl;
 
   Pizza({
     this.id,
@@ -17,7 +16,7 @@ class Pizza {
     required this.rebanadas,
     required this.tamanio,
     required this.descripcion,
-    required this.imagenUrl,
+    required this.imageUrl,
   });
 
   // Convierte el objto o clase pizza a un map.
@@ -28,7 +27,7 @@ class Pizza {
       'rebanadas': rebanadas,
       'tamanio': tamanio,
       'descripcion': descripcion,
-      'imangeUrl':imagenUrl,
+      'imageUrl':imageUrl,
     };
   }
 
@@ -40,5 +39,5 @@ class Pizza {
         rebanadas = doc.data()!["rebanadas"],
         tamanio = doc.data()!["tamanio"],
         descripcion = doc.data()!["descripcion"],
-        imagenUrl= doc.data()!['imagenUrl'];
+        imageUrl= doc.data()!['imageUrl'];
 }

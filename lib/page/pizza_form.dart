@@ -49,7 +49,7 @@ class _PizzaFormState extends State<PizzaForm> {
             precio: double.parse(precio.text),
             rebanadas: int.parse(rebanadas.text),
             tamanio: tamanio.text,
-            imagenUrl: imageUrl,
+            imageUrl: imageUrl,
           );
 
           bool addPizzaSuccess = await agregarPizza(newPizza);
