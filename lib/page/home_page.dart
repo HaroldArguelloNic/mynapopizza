@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/services/pizza_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -8,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-// Función para mostrar un toast
+  // Función para mostrar un toast
   void _showToast(BuildContext context) {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
@@ -132,7 +134,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         backgroundColor: Colors.transparent,
-        //drawer:SideBar(),
         appBar: AppBar(
           title: const Text(
             'MyNapoPizza',
@@ -154,7 +155,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              // agregar una fila horizontal para los tipos
               SizedBox(
                 height: 100, // Altura fija para la fila de tipos
                 child: ListView(
@@ -179,15 +179,22 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              //  agregar una columna vertical para las pizzas
               Column(
                 children: [
-                  _buildPizzaCard('Pizza 1', 'pizzaJamon.jpg'),
-                  _buildPizzaCard('Pizza 2', 'pizzaHawaina.jpg'),
-                  _buildPizzaCard('Pizza 3', 'pizzaPeperoni.jpg'),
-                  _buildPizzaCard('Pizza 4', 'pizzaSalami.jpg'),
-                  _buildPizzaCard('Pizza 5', 'PizzasSuperNapo.jpg'),
-                  _buildPizzaCard('Pizza 6', 'PizzaFullCarne.jpg'),
+                  FutureBuilder<List<DocumentSnapshot>>(
+                    future: listaPizzas(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtiene la lista de pizzas
+                      } else if (snapshot.hasError) {
+                        return Text('Error al obtener las pizzas: ${snapshot.error}');
+                      } else {
+                        return Column(
+                          children: snapshot.data!.map((pizza) => _buildPizzaCard(pizza['name'], pizza['imageUrl'])).toList(),
+                        );
+                      }
+                    },
+                  ),
                 ],
               ),
             ],
@@ -197,7 +204,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-//card para los tipos de pizza
+  //card para los tipos de pizza
   Widget _buildTypeCard(String type) {
     return Container(
       width: 200, // Ancho fijo para cada tarjeta de tipo
@@ -223,7 +230,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-//card para las  pizzas
+  //card para las  pizzas
   Widget _buildPizzaCard(String pizza, String pizzaimage) {
     return Container(
       alignment: Alignment.center,
@@ -244,10 +251,7 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Row(
         children: [
-          //const Icon(Icons.local_pizza, size: 60, color: Colors.orange),
-          //const SizedBox(width: 55.0, height: 180,),
           _imagenPizza(pizzaimage),
-
           Text(
             pizza,
             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -255,7 +259,7 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(width: 20),
           // Botón de "Me gusta" (corazón)
           IconButton(
-            icon: const Icon(Icons.favorite_outline),
+                       icon: const Icon(Icons.favorite_outline),
             color: Colors.red,
             onPressed: () {
               _showToast(context); // Mostrar toast cuando se hace clic
@@ -270,12 +274,11 @@ class _HomePageState extends State<HomePage> {
     return SizedBox(
       height: 200,
       width: 200,
-      child: Image(
-        fit: BoxFit.scaleDown,
-        image: AssetImage('assets/$pizzaimage'),
-        width: 200,
-        height: 200,
+      child: Image.network(
+        pizzaimage,
+        fit: BoxFit.cover,
       ),
     );
   }
 }
+
