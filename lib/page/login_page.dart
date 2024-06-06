@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _nameOrEmailController = TextEditingController();
   final TextEditingController _contraseniaController = TextEditingController();
 
-  bool _isObscure = true;
+  final bool _isObscure = true;
   
 
   static String? token;

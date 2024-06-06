@@ -198,7 +198,7 @@ class _HomePageState extends State<HomePage> {
                               pizza['nombre'] ?? 'Nombre no disponible',
                               pizza['imageUrl'] ?? 'https://via.placeholder.com/200',
                               pizza['descripcion'] ?? 'Descripcion no disponible',
-                              pizza['precio'].toString() ?? 'Precio no disponible',
+                              pizza['precio'] ?? 'Precio no disponible',
                             );
                           }).toList(),
                         );
@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   //card para las  pizzas
-Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio) {
+Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio, [String? s]) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.all(8.0),
@@ -276,8 +276,8 @@ Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, Strin
               ),
               const SizedBox(height: 5), // Espacio entre el nombre y el precio
               Text(
-                'Precio: \$${precio}',
-                style: TextStyle(
+                'Precio: \$$precio',
+                style: const TextStyle(
                   fontSize: 16,
                   color: Colors.green, // Cambia el color del texto del precio
                   fontWeight: FontWeight.bold, // Utiliza una fuente en negrita para resaltarlo
@@ -285,7 +285,7 @@ Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, Strin
               ),
               const SizedBox(height: 5), // Espacio entre el precio y la descripción
               Text(
-                'Descripción: ${descripcion}',
+                'Descripción: $descripcion',
                 style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 10), // Espacio entre la descripción y el botón
@@ -307,13 +307,7 @@ Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, Strin
   );
 }
 
-
-
-
-
-
-
-
+/*  construccion de Widget sizedbox que contiene la imagen de la pizza  */
   Widget _imagenPizza(String pizzaImage) {
     return SizedBox(
       height: 200,
