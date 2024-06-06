@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
               Column(
                 children: [
                   FutureBuilder<List<DocumentSnapshot>>(
-                    future: listaPizzas(),
+                    future: listaPizzas().then((value) => value.cast<DocumentSnapshot<Object>>().toList()),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return CircularProgressIndicator(); // Muestra un indicador de carga mientras se obtiene la lista de pizzas
