@@ -14,23 +14,22 @@ Future<bool> agregarPizza(Pizza pizza) async {
   }
 }
 
-Future<List<DocumentSnapshot>> listaPizzas() async {
-  try {
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('pizza').get();
-    
-    List<DocumentSnapshot> pizzas = querySnapshot.docs;
-    pizzas.forEach((pizza) {
-      print('\n');
-      print("Nombre: ${pizza['name']}, Imagen URL: ${pizza['imageUrl']}");
-    });
+FirebaseFirestore db = FirebaseFirestore.instance;
 
-    if(pizzas == null){
-      print('No hay datos');
-    }
-    
-    return pizzas; // Retorna la lista de documentos (pizzas)
-  } catch (error) {
-    print("Error al obtener la lista de pizzas: $error");
-    return []; // Retorna una lista vacía en caso de error
-  }
+Future<List> listaPizzas() async {
+
+try {
+  List pizzas = [];
+  CollectionReference collectionReferenceUsuarios = db.collection('pizzas');
+  QuerySnapshot queryUsuarios = await collectionReferenceUsuarios.get();
+  queryUsuarios.docs.forEach((documento) {
+    pizzas.add(documento.data());
+  });
+  return pizzas;
+} catch (e) {
+  // Manejo de errores
+  print("Ocurrió un error: $e");
+  return []; 
+}
+
 }
