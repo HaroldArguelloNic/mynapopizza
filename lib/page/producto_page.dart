@@ -3,13 +3,13 @@ import 'package:mynapopizza/page/pizza_form.dart';
 import 'package:mynapopizza/services/pizza_service.dart'; // Importa la función listaPizzas desde el servicio de pizza
 
 class ProductoPage extends StatefulWidget {
-  const ProductoPage({Key? key}) : super(key: key);
+  const ProductoPage({super.key});
 
   @override
-  _ProductoPageState createState() => _ProductoPageState();
+  ProductoPageState createState() => ProductoPageState();
 }
 
-class _ProductoPageState extends State<ProductoPage> {
+class ProductoPageState extends State<ProductoPage> {
   late Future<List<Map<String, dynamic>>> _futurePizzas;
 
   @override
@@ -22,7 +22,7 @@ class _ProductoPageState extends State<ProductoPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return const AlertDialog(
           content: PizzaForm(),
         );
       },
@@ -62,12 +62,12 @@ class _ProductoPageState extends State<ProductoPage> {
                 ),
                 const SizedBox(height: 5), // Espacio entre el nombre y el precio
                 Text(
-                  'Precio: \$${precio}',
+                  'Precio: \$$precio',
                   style: const TextStyle(fontSize: 16, color: Colors.green, fontWeight: FontWeight.bold), // Estilo del precio
                 ),
                 const SizedBox(height: 5), // Espacio entre el precio y la descripción
                 Text(
-                  'Descripción: ${descripcion}',
+                  'Descripción: $descripcion',
                   style: const TextStyle(fontSize: 16),
                 ),
                 const SizedBox(height: 10), // Espacio entre la descripción y el botón

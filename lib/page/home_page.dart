@@ -241,7 +241,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   //card para las  pizzas
-Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio, [String? s]) {
+Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio,) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.all(8.0),
@@ -276,7 +276,7 @@ Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, Strin
               ),
               const SizedBox(height: 5), // Espacio entre el nombre y el precio
               Text(
-                'Precio: \$$precio',
+                'Precio: \$${precio.toString()}',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.green, // Cambia el color del texto del precio

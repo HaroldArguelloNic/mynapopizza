@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mynapopizza/services/firebase_service.dart';
 
 class UsuariosPage extends StatefulWidget {
-  const UsuariosPage({Key? key}) : super(key: key);
+  const UsuariosPage({super.key});
 
   @override
   State<UsuariosPage> createState() => _UsuariosPageState();
@@ -42,9 +42,9 @@ class _UsuariosPageState extends State<UsuariosPage> {
                 return Card(
                   margin: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    leading: CircleAvatar(
+                    leading: const CircleAvatar(
                       backgroundColor: Colors.grey,
-                      child: const Icon(Icons.person),
+                      child: Icon(Icons.person),
                     ),
                     title: Text(usuario['nombre'] ?? ''),
                     subtitle: Text(usuario['correoElectronico'] ?? ''),
