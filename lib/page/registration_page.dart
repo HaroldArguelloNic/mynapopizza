@@ -88,7 +88,6 @@ void registrarUsuario() async {
           ),
           body: SingleChildScrollView( 
             child: Container(
-              
               height: 600,
               width: 500,
               margin: const EdgeInsets.all(8.0),

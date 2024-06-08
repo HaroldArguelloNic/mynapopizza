@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         '/miperfil': (context) => const MyAccountPage(),
         '/usuarios' : (context) => const UsuariosPage(),
         '/formPizza':(context) => const PizzaForm(),
-        '/registrousuario':(contex)=> const  RegistrationPage(),
+        '/registrousuario':(context)=> const  RegistrationPage(),
         '/login':(context)=> const LoginPage(),
       },
     );
