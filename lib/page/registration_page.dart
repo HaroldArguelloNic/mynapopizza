@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
 import 'package:mynapopizza/models/usuario.dart';
@@ -12,12 +11,11 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  
   final db = PizzaConnect(); //se asigna la conexion a una variable final
-  
+
   final nameController = TextEditingController();
   final emailController = TextEditingController();
-  final passwordController = TextEditingController(); 
+  final passwordController = TextEditingController();
   final numeroController = TextEditingController();
   /*
   void insertData() async {
@@ -34,32 +32,37 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
   */
 
-void registrarUsuario() async {
-  // Verifica que ningún campo esté vacío
-  if (nameController.text.isEmpty || emailController.text.isEmpty || passwordController.text.isEmpty) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Por favor, complete todos los campos')));
-    return;
+  void registrarUsuario() async {
+    // Verifica que ningún campo esté vacío
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Por favor, complete todos los campos')));
+      return;
+    }
+
+    // Crea el objeto Usuario con los datos de los controladores
+    Usuario usuario = Usuario(
+      nombre: nameController.text,
+      correoElectronico: emailController.text,
+      contrasenia: passwordController.text,
+      numeroTelefono: numeroController.text,
+    );
+
+    // Intenta registrar el usuario y espera la respuesta
+    bool registroExitoso = await agregarUsuario(usuario);
+
+    // Verifica si el registro fue exitoso
+    if (registroExitoso) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Usuario registrado exitosamente')));
+      Navigator.pushReplacementNamed(context, '/login');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error al registrar usuario')));
+    }
   }
-
-  // Crea el objeto Usuario con los datos de los controladores
-  Usuario usuario = Usuario(
-    nombre: nameController.text,
-    correoElectronico: emailController.text,
-    contrasenia: passwordController.text,
-    numeroTelefono: numeroController.text,
-  );
-
-  // Intenta registrar el usuario y espera la respuesta
-  bool registroExitoso = await agregarUsuario(usuario);
-
-  // Verifica si el registro fue exitoso
-  if (registroExitoso) {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Usuario registrado exitosamente')));
-     Navigator.pushReplacementNamed(context, '/login');
-  } else {
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error al registrar usuario')));
-  }
-}
 
   @override
   void dispose() {
@@ -85,8 +88,14 @@ void registrarUsuario() async {
             title: const Text('Registro de Usuario'),
             centerTitle: true,
             backgroundColor: Colors.amber,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+              Navigator.pushReplacementNamed(context, '/login');// Esto navegará de vuelta a la página anterior
+              },
+            ),
           ),
-          body: SingleChildScrollView( 
+          body: SingleChildScrollView(
             child: Container(
               height: 600,
               width: 500,
@@ -95,82 +104,89 @@ void registrarUsuario() async {
               alignment: Alignment.bottomCenter,
               color: Colors.white,
               child: SizedBox(
-
                 height: 500,
                 width: 300,
-              
                 child: Column(
-                  
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    
-                    const Text('Nombre de usuario',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
+                    const Text(
+                      'Nombre de usuario',
+                      style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                    ),
                     TextField(
-                     decoration: InputDecoration(
-                     border: InputBorder.none,        
-                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(30),
-                     ),
-                     filled: true,
-                     fillColor: Colors.amberAccent,
-                     focusColor: Colors.cyanAccent,
-                     hintText: 'Digite su Nombre',
-                     suffixIcon: const Icon(Icons.person_2, color: Colors.red),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.amberAccent,
+                        focusColor: Colors.cyanAccent,
+                        hintText: 'Digite su Nombre',
+                        suffixIcon:
+                            const Icon(Icons.person_2, color: Colors.red),
                       ),
                       controller: nameController,
                     ),
-                    const Text('Correo Electronico',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
-                     TextField(
-                     decoration: InputDecoration(
-                     border: InputBorder.none,
-                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(30),
-                     ),
-                     filled: true,
-                     fillColor: Colors.amberAccent,
-                     focusColor: Colors.cyanAccent,
-                     hintText: 'Digite su Email',
-                     suffixIcon: const Icon(Icons.mail, color: Colors.red),
+                    const Text(
+                      'Correo Electronico',
+                      style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.amberAccent,
+                        focusColor: Colors.cyanAccent,
+                        hintText: 'Digite su Email',
+                        suffixIcon: const Icon(Icons.mail, color: Colors.red),
                       ),
-                      
                       controller: emailController,
                     ),
-                    const Text('Contraseña',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
-                     TextField(
+                    const Text(
+                      'Contraseña',
+                      style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                    ),
+                    TextField(
                       obscureText: true,
-                       decoration: InputDecoration(
-                     border: InputBorder.none,
-                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(30),
-                     ),
-                     filled: true,
-                     fillColor: Colors.amberAccent,
-                     focusColor: Colors.cyanAccent,
-                     hintText: 'Digite un Password',
-                     suffixIcon: const Icon(Icons.lock, color: Colors.red),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.amberAccent,
+                        focusColor: Colors.cyanAccent,
+                        hintText: 'Digite un Password',
+                        suffixIcon: const Icon(Icons.lock, color: Colors.red),
                       ),
                       controller: passwordController,
-                      
                     ),
-                    const Text('Numero Telefono',style: TextStyle(fontSize: 20,color: Colors.blueAccent), ),
-                     TextField(
-                       decoration: InputDecoration(
-                     border: InputBorder.none,
-                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(30),
-                     ),
-                     filled: true,
-                     fillColor: Colors.amberAccent,
-                     focusColor: Colors.cyanAccent,
-                     hintText: 'Digite su Numero de Telefono',
-                     suffixIcon: const Icon(Icons.phone_in_talk_sharp, color: Colors.red),
+                    const Text(
+                      'Numero Telefono',
+                      style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                    ),
+                    TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        filled: true,
+                        fillColor: Colors.amberAccent,
+                        focusColor: Colors.cyanAccent,
+                        hintText: 'Digite su Numero de Telefono',
+                        suffixIcon: const Icon(Icons.phone_in_talk_sharp,
+                            color: Colors.red),
                       ),
                       controller: numeroController,
-                      
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20),
@@ -187,9 +203,7 @@ void registrarUsuario() async {
                                                     
                         
                         }*/
-                         registrarUsuario();
-                         
-                         
+                          registrarUsuario();
                         },
                       ),
                     ),
