@@ -55,6 +55,7 @@ void registrarUsuario() async {
   // Verifica si el registro fue exitoso
   if (registroExitoso) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Usuario registrado exitosamente')));
+     Navigator.pushReplacementNamed(context, '/login');
   } else {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Error al registrar usuario')));
   }
@@ -188,7 +189,7 @@ void registrarUsuario() async {
                         
                         }*/
                          registrarUsuario();
-                         Navigator.pop(context);
+                         
                          
                         },
                       ),
