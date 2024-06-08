@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/services/pizza_service.dart'; // Asegúrate de que este archivo exista y esté correctamente implementado
+import 'package:mynapopizza/services/pizza_service.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +19,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -182,10 +181,12 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   FutureBuilder<List<Map<String, dynamic>>>(
                     future: listaPizzas(),
+
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
                           child: CircularProgressIndicator(),
+
                         ); // Muestra un indicador de carga mientras se obtiene la lista de pizzas
                       } else if (snapshot.hasError) {
                         return Text('Error al obtener las pizzas: ${snapshot.error}');
@@ -198,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                               pizza['nombre'] ?? 'Nombre no disponible',
                               pizza['imageUrl'] ?? 'https://via.placeholder.com/200',
                               pizza['descripcion'] ?? 'Descripcion no disponible',
-                              pizza['precio'].toString() ?? '0',
+                              pizza['precio'].toString() ??'0',
                             );
                           }).toList(),
                         );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/pizza_form.dart';
+import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
 import 'package:mynapopizza/page/usuarios_page.dart';
 import 'package:mynapopizza/services/push_notification.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/miperfil': (context) => const MyAccountPage(),
         '/usuarios' : (context) => const UsuariosPage(),
         '/formPizza':(context) => const PizzaForm(),
+        '/registrousuario':(contex)=> const  RegistrationPage(),
       },
     );
   }
