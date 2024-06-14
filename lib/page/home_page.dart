@@ -5,6 +5,8 @@ import 'package:mynapopizza/services/usuario_service.dart'; // Verificar que no 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -15,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     final scaffold = ScaffoldMessenger.of(context);
     scaffold.showSnackBar(
       const SnackBar(
-        content: Text("Función en desarrollo"),
+        content: Text("Se Agrego la Pizza a Favoritos"),
         duration: Duration(seconds: 2),
       ),
     );
@@ -197,11 +199,12 @@ class _HomePageState extends State<HomePage> {
                         return Column(
                           children: snapshot.data!.map((pizza) {
                             return _buildPizzaCard(
+                              pizza['id'] ?? 'Error no se Obtuvo el Uid',
                               pizza['nombre'] ?? 'Nombre no disponible',
                               pizza['imageUrl'] ?? 'https://via.placeholder.com/200',
                               pizza['descripcion'] ?? 'Descripcion no disponible',
                               pizza['precio'].toString() ??'0',
-                              pizza['uid'] ?? '00000',
+
                             );
                           }).toList(),
                         );
@@ -244,7 +247,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   //card para las  pizzas
-Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio,String pizzaUid) {
+Widget _buildPizzaCard(String pizzaId,String nombre, String imageUrl, String descripcion, String precio) {
+    String pizzaUid=pizzaId;
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.all(8.0),
@@ -302,7 +306,8 @@ Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, Strin
                     //probando funcion de agregar pizzafavorita a lista de pizzas usuario
                     //Falta Obtener uid de la sesion de usuario y extraer la de pizza
                     //prueba de funcionalidad de la funcion
-                    agregarPizzaFavorita("9orDDc3H2fcqEFEIsv1Y","AuKTL0NcRu5qxOWiUQBv");
+                    agregarPizzaFavorita("9orDDc3H2fcqEFEIsv1Y",pizzaUid);
+
                   },
                 ),
               ),

@@ -21,7 +21,10 @@ Future<List<Map<String, dynamic>>> listaPizzas() async {
     QuerySnapshot queryPizzas = await collectionReferencePizzas.get();
 
     for (var documento in queryPizzas.docs) {
-      pizzas.add(documento.data() as Map<String, dynamic>);
+      Map<String, dynamic> pizzaData = documento.data() as Map<String, dynamic>;
+      pizzaData['id'] = documento.id; // Agregar el campo 'id' al mapa de datos de la pizza
+      pizzas.add(pizzaData);
+      print(documento.id); // Imprimir el ID del documento (opcional)
     }
 
     return pizzas;
@@ -30,3 +33,4 @@ Future<List<Map<String, dynamic>>> listaPizzas() async {
     return [];
   }
 }
+
