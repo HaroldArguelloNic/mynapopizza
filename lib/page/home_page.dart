@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/services/pizza_service.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
+import 'package:mynapopizza/services/pizza_service.dart';
+import 'package:mynapopizza/services/usuario_service.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -200,6 +201,7 @@ class _HomePageState extends State<HomePage> {
                               pizza['imageUrl'] ?? 'https://via.placeholder.com/200',
                               pizza['descripcion'] ?? 'Descripcion no disponible',
                               pizza['precio'].toString() ??'0',
+                              pizza['uid'] ?? '00000',
                             );
                           }).toList(),
                         );
@@ -242,7 +244,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   //card para las  pizzas
-Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio,) {
+Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio,String pizzaUid) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.all(8.0),
@@ -295,8 +297,12 @@ Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, Strin
                 child: IconButton(
                   icon: const Icon(Icons.favorite_outline),
                   color: Colors.red,
-                  onPressed: () {
-                    _showToast(context); // Mostrar toast cuando se hace clic
+                  onPressed: () async {
+                    _showToast(context);
+                    //probando funcion de agregar pizzafavorita a lista de pizzas usuario
+                    //Falta Obtener uid de la sesion de usuario y extraer la de pizza
+                    //prueba de funcionalidad de la funcion
+                    agregarPizzaFavorita("9orDDc3H2fcqEFEIsv1Y","AuKTL0NcRu5qxOWiUQBv");
                   },
                 ),
               ),

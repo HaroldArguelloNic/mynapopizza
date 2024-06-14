@@ -19,13 +19,14 @@ Future<List<Map<String, dynamic>>> listaPizzas() async {
     List<Map<String, dynamic>> pizzas = [];
     CollectionReference collectionReferencePizzas = _db.collection('pizzas');
     QuerySnapshot queryPizzas = await collectionReferencePizzas.get();
-    queryPizzas.docs.forEach((documento) {
+
+    for (var documento in queryPizzas.docs) {
       pizzas.add(documento.data() as Map<String, dynamic>);
-    });
+    }
+
     return pizzas;
   } catch (e) {
-    // Manejo de errores
-    print("Ocurrió un error: $e");
+    print("Ocurrió un error al obtener las pizzas: $e");
     return [];
   }
 }

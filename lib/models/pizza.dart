@@ -22,6 +22,7 @@ class Pizza {
   // Convierte el objto o clase pizza a un map.
   Map<String, dynamic> toMap() {
     return {
+      'uid':id,
       'nombre': nombre,
       'precio': precio,
       'rebanadas': rebanadas,
