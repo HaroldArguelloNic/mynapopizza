@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                               pizza['nombre'] ?? 'Nombre no disponible',
                               pizza['imageUrl'] ?? 'https://via.placeholder.com/200',
                               pizza['descripcion'] ?? 'Descripcion no disponible',
-                              pizza['precio'].toString() ??'0',
+                              pizza['precio'].toString(),
 
                             );
                           }).toList(),
@@ -283,7 +283,7 @@ Widget _buildPizzaCard(String pizzaId,String nombre, String imageUrl, String des
               ),
               const SizedBox(height: 5), // Espacio entre el nombre y el precio
               Text(
-                'Precio: \$${precio}',
+                'Precio: \$$precio',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.green, // Cambia el color del texto del precio
