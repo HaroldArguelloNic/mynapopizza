@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FavoritosPage extends StatefulWidget {
-  const FavoritosPage({Key? key}) : super(key: key);
+  const FavoritosPage({super.key});
 
   @override
   _FavoritosPageState createState() => _FavoritosPageState();
