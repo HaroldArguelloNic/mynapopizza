@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:mynapopizza/page/home_page.dart';
-//import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/services/push_notification.dart';
-//import 'package:mynapopizza/services/login_provider.dart';
+import 'package:mynapopizza/services/login_provider.dart';
+import 'package:mynapopizza/validators/validator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -21,13 +20,13 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _nameOrEmailController = TextEditingController();
   final TextEditingController _contraseniaController = TextEditingController();
 
-  final bool _isObscure = true;
-  
+  late bool _isObscure = true;
+  final bool _isLoading = false;
 
   static String? token;
 
-  @override
-  void initState() {
+   @override
+    void initState() {
     super.initState();
     token = PushNotificationService.token;
   }
@@ -35,33 +34,11 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-    _nameController.dispose();
-    _correoElectronicoController.dispose();
+       
     _nameOrEmailController.dispose();
     _contraseniaController.dispose();
   }
 
-  //Prueba de login falta implementacion con datos
-  // ignore: non_constant_identifier_names
-  // void _BetaLogin(BuildContext context) {
-  //   String usuario = _usuarioController.text;
-  //   String contrasena = _contraseniaController.text;
-
-  // Validación simple: Si el usuario es 'admin' y la contraseña es 'admin', consideramos que es válido
-  //   if (usuario == 'admin' && contrasena == 'admin') {
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => const HomePage()),
-  //     );
-  //   } else {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(
-  //         content: Text('Credenciales inválidas'),
-  //         duration: Duration(seconds: 2),
-  //       ),
-  //     );
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,50 +88,58 @@ class _LoginPageState extends State<LoginPage> {
                             suffixIcon: Icon(Icons.email),
                           ),
                           keyboardType: TextInputType.emailAddress,
-                          validator: validateEmail,
+                          validator: Validators.emailOrUser,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
+                        const SizedBox(height: 20,),
                         // Contraseña TextField
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 25.0, vertical: 10.0),
                           child: TextFormField(
                             controller: _contraseniaController,
-                            obscureText: _isObscure,
-                            decoration: const InputDecoration(
+                            keyboardType: TextInputType.visiblePassword,
+                            decoration: InputDecoration(
                               labelText: 'Contraseña',
-                              enabledBorder: OutlineInputBorder(
+                              enabledBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black54),
                               ),
                               fillColor: Colors.white,
                               filled: true,
+                              suffixIcon: IconButton(icon: Icon(
+                                _isObscure
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isObscure = !_isObscure;
+                                });
+                              },
+                              )
                             ),
-                            validator: (password) => password!.isNotEmpty
-                             ? "Ingresa la contraseña": null,
+                            obscureText: _isObscure,
+                            validator: Validators.passwordValidator,
                              autovalidateMode: AutovalidateMode.onUserInteraction,
                           ),
                         ),
-                        
+                        const SizedBox(height: 20,),
+                        _isLoading? const CircularProgressIndicator(
+                                    value: null,
+                                    color: Colors.blue,
+                                    )
                         // Botón de inicio de sesión
-                        ElevatedButton.icon(
+                        : ElevatedButton.icon(
                           onPressed: () {
-                            
                             bool valido =_formKey.currentState!.validate();
 
-                            if(valido != true) {
+                            if(valido != false) {
                               Navigator.push(context,                                                          
                               MaterialPageRoute(
                                   builder: (context) =>
                                       const HomePage())
                               );
                             }
-
-
-                              
-                             
-                              
-
-                            
                                                         
                           },
                           icon: const Icon(Icons.door_front_door_rounded),
@@ -167,6 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children:[ 
                             const Text('¿No tienes cuenta?'),
                             TextButton(
@@ -197,14 +183,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-  }
-
-  String? validateEmail(String? email) {
-    RegExp emailRegex = RegExp(r'^[\w\.-]+@[w-]+\.\w{2,3}(\.\w{2,3})?$');
-    final isEmailValid = emailRegex.hasMatch(email ?? '');
-    if (!isEmailValid) {
-      return 'Por favor ingrese un correo valido';
-    }
-    return null;
   }
 }

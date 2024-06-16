@@ -87,13 +87,12 @@ Future<void> registerUser({
 
   }
   
-  
    catch (e) {
     onError('Error al registrar el usuario');
   }
 }
 
-
+ 
 
 UserRole userRole = UserRole.user;
 bool isPasswordVisible= false;

@@ -31,7 +31,8 @@ class LoginProvider extends ChangeNotifier {
 
       if (result.docs.isNotEmpty) {
         final String email = result.docs.first.get('correoElectronico');
-        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        final UserCredential userCredential =
+         await _auth.signInWithEmailAndPassword(
           email: email,
           password: password,
         );

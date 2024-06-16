@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
 import 'package:mynapopizza/models/usuario.dart';
 import 'package:mynapopizza/services/usuario_service.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -11,26 +12,31 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final db = PizzaConnect(); //se asigna la conexion a una variable final
 
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final numeroController = TextEditingController();
-  /*
-  void insertData() async {
-    db.pizzaConnect().then((conn) async {
-      String sqlQuery =
-          'insert into Clientes (name, email, password ) values(?,?,?)';
-      
-      await conn.execute(
-          sqlQuery,[nameController.text, emailController.text, passwordController.text] as Map<String, dynamic>?);
+  final registerDay = TextEditingController();
 
-      setState(() {});
-      
-    });
+  bool _isObscure = true;
+  bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
   }
-  */
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    numeroController.dispose();
+  }
 
   void registrarUsuario() async {
     // Verifica que ningún campo esté vacío
@@ -65,15 +71,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    numeroController.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) => Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
@@ -89,9 +86,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
             centerTitle: true,
             backgroundColor: Colors.amber,
             leading: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
-              Navigator.pushReplacementNamed(context, '/login');// Esto navegará de vuelta a la página anterior
+                Navigator.pushReplacementNamed(context,
+                    '/login'); // Esto navegará de vuelta a la página anterior
               },
             ),
           ),
@@ -188,38 +186,38 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       controller: numeroController,
                     ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          hintText: "dd/mm/yyy",
+                          labelText: 'Ingrese la fecha de registro',
+                          suffixIcon: IconButton(
+                              icon: const Icon(Icons.calendar_today_outlined),
+                              onPressed: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                ).then((DateTime? value) {
+                                  if (value != null) {
+                                    registerDay.text = value.toString();
+                                  }
+                                });
+                              })),
+                      controller: registerDay,
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: ElevatedButton(
                         child: const Text('Registrarse'),
                         onPressed: () async {
-                          /*
-                        if(emailController.text != "" && passwordController.text != "" && nameController.text != "" ) {
-                          if(PizzaConnect.db == 'success') {
-                             const SnackBar(content: Text('conexion exitosa'));
-        
-                            //insertData();
-                          }
-                                                    
-                        
-                        }*/
                           registrarUsuario();
                         },
                       ),
                     ),
-                    /*
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: ElevatedButton(
-                        child: const Text('Conectar al servidor'),
-                        onPressed: () {
-
-
-                        }
-                        
-                      ),
-                    ),
-                    */
                   ],
                 ),
               ),
@@ -228,59 +226,3 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
       );
 }
-
-// class TextFieldWidget extends StatefulWidget {
-//   final String label;
-//   final String placeholder;
-//   final IconData? icon;
-//   final bool isTextArea;
-//   final TextEditingController? controller;
-  
-
-// // ignore: use_super_parameters
-//   const TextFieldWidget(
-//       {Key? key,
-//       required this.label,
-//       required this.placeholder,
-//       this.icon,
-//       this.isTextArea = false,
-//       this.controller
-//       })
-//       : super(key: key);
-
-//   @override
-//   State<TextFieldWidget> createState() => _TextFieldWidgetState();
-// }
-
-// class _TextFieldWidgetState extends State<TextFieldWidget> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: Colors.white,
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.stretch,
-//         children: [
-//           Text(widget.label,
-//               style: const TextStyle(color: Colors.green, fontSize: 18)),
-//           const SizedBox(height: 5.0),
-//           Container(
-//             padding: const EdgeInsets.only(left: 10.0),
-//             decoration: BoxDecoration(
-//               border: Border.all(color: Colors.black),
-//               borderRadius: BorderRadius.circular(10.0),
-//             ),
-//             child: TextField(
-//               controller: widget.controller,
-//               maxLines: widget.isTextArea ? 6 : null,
-//               decoration: InputDecoration(
-//                 border: InputBorder.none,
-//                 hintText: widget.placeholder,
-//                 suffixIcon: widget.icon != null ? Icon(widget.icon, color: Colors.red) : null,
-//               ),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }

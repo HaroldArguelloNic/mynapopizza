@@ -14,6 +14,6 @@ class PushNotificationService {
   );
   await _firebaseMessaging.requestPermission();
   token = await _firebaseMessaging.getToken();
-  
+ // print('Token $token');
  }
 }
