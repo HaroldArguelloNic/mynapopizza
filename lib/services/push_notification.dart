@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mynapopizza/firebase_options.dart';
-import 'package:mynapopizza/utils/showsnacbars.dart';
 
 class PushNotificationService {
   static final FirebaseMessaging _firebaseMessaging = 

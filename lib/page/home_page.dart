@@ -3,7 +3,7 @@ import 'package:mynapopizza/services/pizza_service.dart';
 import 'package:mynapopizza/services/usuario_service.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, required userData});
 
 
 

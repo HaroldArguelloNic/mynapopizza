@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(), // Cambia la pantalla de inicio según tus necesidades
       routes: {
-        '/home': (context) => const HomePage(),
+        '/home': (context) => const HomePage(userData: null,),
         '/favoritos': (context) => const FavoritosPage(),
         '/producto': (context) => const ProductoPage(),
         '/miorden': (context) => const CartScreen(),

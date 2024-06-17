@@ -74,4 +74,21 @@ class LoginProvider extends ChangeNotifier {
   User? getCurrentUser() {
     return _auth.currentUser;
   }
+
+  //obtener datos del usuaario
+  Future<dynamic> getUserData(String email) async {
+    final QuerySnapshot<Map<String,dynamic>> result = await _firestore
+    .collection('usuarios')
+    .where('correoElectronico', isEqualTo: email )
+    .limit(1)
+    .get();
+
+    if(result.docs.isNotEmpty) {
+      final userData= result.docs[0].data();
+      return userData;
+    }
+    return null;
+
+  }
+
 }

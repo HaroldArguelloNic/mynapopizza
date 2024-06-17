@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/registration_page.dart';
+import 'package:mynapopizza/services/local_storage.dart';
 import 'package:mynapopizza/services/push_notification.dart';
-import 'package:mynapopizza/services/login_provider.dart';
+import 'package:mynapopizza/utils/showsnacbars.dart';
 import 'package:mynapopizza/validators/validator.dart';
+import 'package:provider/provider.dart';
+import '../services/login_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,18 +19,18 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _correoElectronicoController = TextEditingController();
+  //final TextEditingController _nameController = TextEditingController();
+  //final TextEditingController _correoElectronicoController = TextEditingController();
   final TextEditingController _nameOrEmailController = TextEditingController();
   final TextEditingController _contraseniaController = TextEditingController();
 
   late bool _isObscure = true;
-  final bool _isLoading = false;
+  bool _isLoading = false;
 
   static String? token;
 
-   @override
-    void initState() {
+  @override
+  void initState() {
     super.initState();
     token = PushNotificationService.token;
   }
@@ -34,11 +38,80 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
     super.dispose();
-       
+
     _nameOrEmailController.dispose();
     _contraseniaController.dispose();
   }
 
+  //ingreso con longin
+  void onFormLogin(
+    String usernameOrEmail,
+    String password,
+    context,
+  ) async {
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+      final String usernameOrEmailLower = usernameOrEmail.toLowerCase();
+
+      loginProvider.loginUser(
+          usernameOrEmail: usernameOrEmailLower,
+          password: password,
+          onSuccess: () async {
+            User? user = FirebaseAuth.instance.currentUser;
+            if (user != null) {
+              setState(() {
+                _isLoading = false;
+              });
+              dynamic userData = await loginProvider.getUserData(user.email!);
+              //guardar datos de local
+              await LocalStorage().saveUserData(
+                  _nameOrEmailController.text, _contraseniaController.text);
+              //guardar estado de inicio de sesion
+              await LocalStorage().setIsSignedIn(true);
+              //cambiar estado de autenticacion
+              loginProvider.authStatus;
+              //navega a la pagina principal
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
+                return HomePage(userData: userData);
+              }));
+            } else {
+              setState(() {
+                _isLoading = false;
+              });
+              await showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Verifica tu usuario'),
+                      content: const Text(
+                          'Por favor verifica tu correo electronico para continuar'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Aceptar'))
+                      ],
+                    );
+                  });
+            }
+          },
+          onError: (String error) {
+            setState(() {
+              _isLoading= false;
+            });
+            showSnackBar(context, error.toString());
+          }
+          );
+    } else {}
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +164,9 @@ class _LoginPageState extends State<LoginPage> {
                           validator: Validators.emailOrUser,
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         // Contraseña TextField
                         Padding(
                           padding: const EdgeInsets.symmetric(
@@ -100,78 +175,75 @@ class _LoginPageState extends State<LoginPage> {
                             controller: _contraseniaController,
                             keyboardType: TextInputType.visiblePassword,
                             decoration: InputDecoration(
-                              labelText: 'Contraseña',
-                              enabledBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black54),
-                              ),
-                              fillColor: Colors.white,
-                              filled: true,
-                              suffixIcon: IconButton(icon: Icon(
-                                _isObscure
-                                ? Icons.visibility_off_outlined
-                                : Icons.visibility_outlined
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _isObscure = !_isObscure;
-                                });
-                              },
-                              )
-                            ),
+                                labelText: 'Contraseña',
+                                enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black54),
+                                ),
+                                fillColor: Colors.white,
+                                filled: true,
+                                suffixIcon: IconButton(
+                                  icon: Icon(_isObscure
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined),
+                                  onPressed: () {
+                                    setState(() {
+                                      _isObscure = !_isObscure;
+                                    });
+                                  },
+                                )),
                             obscureText: _isObscure,
                             validator: Validators.passwordValidator,
-                             autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                           ),
                         ),
-                        const SizedBox(height: 20,),
-                        _isLoading? const CircularProgressIndicator(
-                                    value: null,
-                                    color: Colors.blue,
-                                    )
-                        // Botón de inicio de sesión
-                        : ElevatedButton.icon(
-                          onPressed: () {
-                            bool valido =_formKey.currentState!.validate();
-
-                            if(valido != false) {
-                              Navigator.push(context,                                                          
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const HomePage())
-                              );
-                            }
-                                                        
-                          },
-                          icon: const Icon(Icons.door_front_door_rounded),
-                          label: const Text(
-                            'Login',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          style: const ButtonStyle(
-                            fixedSize: WidgetStatePropertyAll(Size(200, 40)),
-                          ),
+                        const SizedBox(
+                          height: 20,
                         ),
+                        _isLoading
+                            ? const CircularProgressIndicator(
+                                value: null,
+                                color: Colors.blue,
+                              )
+                            // Botón de inicio de sesión
+                            : ElevatedButton.icon(
+                                onPressed: () {
+                                  onFormLogin(
+                                    _nameOrEmailController.text,
+                                    _contraseniaController.text,
+                                    context);
+                                    },
+                                icon: const Icon(Icons.door_front_door_rounded),
+                                label: const Text(
+                                  'Login',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                style: const ButtonStyle(
+                                  fixedSize:
+                                      WidgetStatePropertyAll(Size(200, 40)),
+                                ),
+                              ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children:[ 
+                          children: [
                             const Text('¿No tienes cuenta?'),
                             TextButton(
-                            onPressed: () => Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrationPage()),
-                            ),
-                            child: const Text(
-                              'Registrate?',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                              onPressed: () => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrationPage()),
+                              ),
+                              child: const Text(
+                                'Registrate?',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
                         ),
                       ],
                     ),
