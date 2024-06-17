@@ -126,5 +126,13 @@ Future<bool> checkUserExist(String username) async {
    return url;
  }
 
+  Future<bool> checkEmailExist(String email) async{ 
+  final QuerySnapshot result = await _firestore
+  .collection('usuarios')
+  .where('correoElectronico', isEqualTo: email)
+  .limit(1)
+  .get();
 
+  return result.docs.isNotEmpty;
+  }
 }
