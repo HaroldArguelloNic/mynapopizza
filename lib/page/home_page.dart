@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/services/login_provider.dart';
 import 'package:mynapopizza/services/pizza_service.dart';
-import 'package:mynapopizza/services/usuario_service.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
+import 'package:mynapopizza/services/usuario_service.dart';
+import 'package:provider/provider.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required userData});
@@ -21,6 +24,15 @@ class _HomePageState extends State<HomePage> {
         duration: Duration(seconds: 2),
       ),
     );
+  }
+   User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    // Obtener el usuario actual utilizando Provider
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    user = loginProvider.getCurrentUser();
   }
   @override
   Widget build(BuildContext context) {
@@ -306,7 +318,7 @@ Widget _buildPizzaCard(String pizzaId,String nombre, String imageUrl, String des
                     //probando funcion de agregar pizzafavorita a lista de pizzas usuario
                     //Falta Obtener uid de la sesion de usuario y extraer la de pizza
                     //prueba de funcionalidad de la funcion
-                    agregarPizzaFavorita("9orDDc3H2fcqEFEIsv1Y",pizzaUid);
+                    agregarPizzaFavorita(user!.uid,pizzaUid);
 
                   },
                 ),

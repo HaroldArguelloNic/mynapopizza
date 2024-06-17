@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mynapopizza/services/login_provider.dart';
+import 'package:provider/provider.dart';
 
 class FavoritosPage extends StatefulWidget {
   const FavoritosPage({super.key});
@@ -9,7 +12,15 @@ class FavoritosPage extends StatefulWidget {
 }
 
 class _FavoritosPageState extends State<FavoritosPage> {
-  final String uidUsuario = "9orDDc3H2fcqEFEIsv1Y"; // Reemplazar esto con el UID del usuario actual de la sesion
+   User? user;
+
+  @override
+  void initState() {
+    super.initState();
+    // Obtener el usuario actual utilizando Provider
+    final loginProvider = Provider.of<LoginProvider>(context, listen: false);
+    user = loginProvider.getCurrentUser();
+  }
 
   // Función para mostrar un toast
   void _showToast(BuildContext context) {
@@ -59,7 +70,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
           ),
         ),
         child: FutureBuilder<List<Map<String, dynamic>>>(
-          future: obtenerPizzasFavoritas(uidUsuario),
+          future: obtenerPizzasFavoritas(user!.uid),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
