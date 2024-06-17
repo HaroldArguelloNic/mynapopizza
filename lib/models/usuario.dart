@@ -6,6 +6,7 @@ class Usuario {
   final String correoElectronico;
   final String numeroTelefono;
   final String contrasenia;
+  final String rol;
 
   Usuario({
     this.id,
@@ -13,15 +14,18 @@ class Usuario {
     required this.correoElectronico,
     required this.numeroTelefono,
     required this.contrasenia,
+    required this.rol,
   });
 
   // Convierte el objto o clase usuario a un map.
   Map<String, dynamic> toMap() {
     return {
+      'uid':id,
       'nombre': nombre,
       'correoElectronico': correoElectronico,
       'contrasenia':contrasenia,
       'numeroTelefono': numeroTelefono,
+      'rol':rol,
     };
   }
 
@@ -31,5 +35,6 @@ class Usuario {
         nombre = doc.data()!["nombre"],
         correoElectronico = doc.data()!["correoElectronico"],
         numeroTelefono = doc.data()!["numeroTelefono"],
-        contrasenia = doc.data()!['contrasenia'];
+        contrasenia = doc.data()!['contrasenia'],
+        rol= doc.data()!['rol'];
 }

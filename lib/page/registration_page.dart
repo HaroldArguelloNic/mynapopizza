@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
@@ -9,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../utils/upload_image.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+  const RegistrationPage({Key? key}) : super(key: key);
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -45,7 +46,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     numeroController.dispose();
   }
 
-//Registrar Usuario
+  //Registrar Usuario
   void submitRegister() async {
     final registerProvider =
         Provider.of<RegisterProvider>(context, listen: false);
@@ -72,6 +73,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           _isLoading = false;
         });
         showSnackBar(context, "correo de usuario ya existe");
+        return;
       }
       //validar que ingrese imagen de perfil
       if (imageUser == null) {
@@ -79,6 +81,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           _isLoading = false;
         });
         showSnackBar(context, "Ingrese la imagen de perfil");
+        return;
       }
 
       //obtenener fecha y hora actual
@@ -89,7 +92,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         await registerProvider.registerUser(
           name: nameController.text,
           correoElectronico: emailController.text.toLowerCase().trim(),
-          contrasenia: passwordController.text.toLowerCase().trim(),
+          contrasenia: passwordController.text.trim(),
           rol: UserRole.user,
           token: token!,
           createdAt: now,
@@ -99,15 +102,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
           },
         );
         await FirebaseAuth.instance.currentUser!.sendEmailVerification();
-        showSnackBar(context, 'revise su cuenta de correo');
+        showSnackBar(context, 'Revise su cuenta de correo');
         Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
         setState(() {
           _isLoading = false;
         });
       } on FirebaseAuthException catch (e) {
         showSnackBar(context, e.toString());
+        setState(() {
+          _isLoading = false;
+        });
       } catch (e) {
         showSnackBar(context, e.toString());
+        setState(() {
+          _isLoading = false;
+        });
       }
     } else {
       setState(() {
@@ -122,46 +131,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
     setState(() {});
   }
 
-  // void registrarUsuario() async {
-  //   // Verifica que ningún campo esté vacío
-  //   if (nameController.text.isEmpty ||
-  //       emailController.text.isEmpty ||
-  //       passwordController.text.isEmpty) {
-  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-  //         content: Text('Por favor, complete todos los campos')));
-  //     return;
-  //   }
-
-  // Crea el objeto Usuario con los datos de los controladores
-  // Usuario usuario = Usuario(
-  //   nombre: nameController.text,
-  //   correoElectronico: emailController.text,
-  //   contrasenia: passwordController.text,
-  //   numeroTelefono: numeroController.text,
-  // );
-
-  // Intenta registrar el usuario y espera la respuesta
-  // bool registroExitoso = await agregarUsuario(usuario);
-
-  // // Verifica si el registro fue exitoso
-  // if (registroExitoso) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Usuario registrado exitosamente')));
-  //   Navigator.pushReplacementNamed(context, '/login');
-  // } else {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Error al registrar usuario')));
-  // }
-
   @override
   Widget build(BuildContext context) => Container(
         decoration: const BoxDecoration(
-            image: DecorationImage(
-          image: AssetImage(
-            'assets/background2.jpg',
+          image: DecorationImage(
+            image: AssetImage('assets/background2.jpg'),
+            fit: BoxFit.cover,
           ),
-          fit: BoxFit.cover,
-        )),
+        ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
           appBar: AppBar(
@@ -217,7 +194,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         style:
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           enabledBorder: OutlineInputBorder(
@@ -232,13 +209,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               const Icon(Icons.person_2, color: Colors.red),
                         ),
                         controller: nameController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor, ingrese su nombre';
+                          }
+                          return null;
+                        },
                       ),
                       const Text(
                         'Correo Electronico',
                         style:
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           enabledBorder: OutlineInputBorder(
@@ -252,13 +235,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           suffixIcon: const Icon(Icons.mail, color: Colors.red),
                         ),
                         controller: emailController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor, ingrese su correo electrónico';
+                          }
+                          return null;
+                        },
                       ),
                       const Text(
                         'Contraseña',
                         style:
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
-                      TextField(
+                      TextFormField(
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -273,13 +262,19 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           suffixIcon: const Icon(Icons.lock, color: Colors.red),
                         ),
                         controller: passwordController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor, ingrese su contraseña';
+                          }
+                          return null;
+                        },
                       ),
                       const Text(
                         'Numero Telefono',
                         style:
                             TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
-                      TextField(
+                      TextFormField(
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           enabledBorder: OutlineInputBorder(
@@ -294,6 +289,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               color: Colors.red),
                         ),
                         controller: numeroController,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor, ingrese su número de teléfono';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(
                         height: 20,
@@ -311,20 +312,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             hintText: "dd/mm/yyy",
                             labelText: 'Ingrese la fecha de registro',
                             suffixIcon: IconButton(
-                                icon: const Icon(Icons.calendar_today_outlined),
-                                onPressed: () {
-                                  showDatePicker(
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime(1900),
-                                    lastDate: DateTime.now(),
-                                  ).then((DateTime? value) {
-                                    if (value != null) {
-                                      registerDay.text = value.toString();
-                                    }
-                                  });
-                                })),
+                              icon: const Icon(Icons.calendar_today_outlined),
+                              onPressed: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(1900),
+                                  lastDate: DateTime.now(),
+                                ).then((DateTime? value) {
+                                  if (value != null) {
+                                    registerDay.text = value.toString();
+                                  }
+                                });
+                              },
+                            )),
                         controller: registerDay,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Por favor, ingrese la fecha de registro';
+                          }
+                          return null;
+                        },
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
@@ -335,9 +343,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             : ElevatedButton(
                                 onPressed: () {
                                   submitRegister();
-                                  setState(() {
-                                    
-                                  });
                                 },
                                 child: const Text('Registrarse'),
                               ),
