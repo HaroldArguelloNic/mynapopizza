@@ -1,14 +1,11 @@
-
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:mynapopizza/data/mysql_conection.dart';
-import 'package:mynapopizza/models/usuario.dart';
+import 'package:mynapopizza/services/push_notification.dart';
 import 'package:mynapopizza/services/register_provider.dart';
-import 'package:mynapopizza/services/subir_imagen.dart';
 import 'package:mynapopizza/utils/showsnacbars.dart';
 import 'package:provider/provider.dart';
-
 import '../utils/upload_image.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -30,12 +27,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   bool _isObscure = true;
   bool _isLoading = false;
-  
-  var image;
+  File? imageUser;
+  static String? token;
 
   @override
   void initState() {
     super.initState();
+    token = PushNotificationService.token;
   }
 
   @override
@@ -46,51 +44,81 @@ class _RegistrationPageState extends State<RegistrationPage> {
     passwordController.dispose();
     numeroController.dispose();
   }
-//Registrar Usuario
-void submitRegister() async {
-  final registerProvider = Provider.of<RegisterProvider>(context, listen: false);
 
-  if(_formKey.currentState!.validate()) {
-    setState(() {
-      _isLoading= true;
-    });
-    //Verificar si el usuario existe
-    final bool existUserName = await registerProvider.checkUserExist(nameController.text);
-    if(existUserName){
+//Registrar Usuario
+  void submitRegister() async {
+    final registerProvider =
+        Provider.of<RegisterProvider>(context, listen: false);
+
+    if (_formKey.currentState!.validate()) {
       setState(() {
-        _isLoading = false;
+        _isLoading = true;
       });
-      showSnackBar(context, "El nombre de usuario ya existe");
-      return;
-    }
-    final bool existEmail =
-      await registerProvider.checkEmailExist(emailController.text);
-      if(existEmail){
+
+      //Verificar si el usuario existe
+      final bool existUserName =
+          await registerProvider.checkUserExist(nameController.text);
+      if (existUserName) {
         setState(() {
           _isLoading = false;
         });
-        showSnackBar(context, "contraseña de usuario ya existe");
+        showSnackBar(context, "El nombre de usuario ya existe");
+        return;
       }
-    //validar que ingrese imagen de perfil
-    if(image == null){
+      final bool existEmail =
+          await registerProvider.checkEmailExist(emailController.text);
+      if (existEmail) {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(context, "correo de usuario ya existe");
+      }
+      //validar que ingrese imagen de perfil
+      if (imageUser == null) {
+        setState(() {
+          _isLoading = false;
+        });
+        showSnackBar(context, "Ingrese la imagen de perfil");
+      }
+
+      //obtenener fecha y hora actual
+      final now = DateTime.now().toString();
+
+      //Registrar usuario
+      try {
+        await registerProvider.registerUser(
+          name: nameController.text,
+          correoElectronico: emailController.text.toLowerCase().trim(),
+          contrasenia: passwordController.text.toLowerCase().trim(),
+          rol: UserRole.user,
+          token: token!,
+          createdAt: now,
+          imageUser: imageUser,
+          onError: (error) {
+            showSnackBar(context, error);
+          },
+        );
+        await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+        showSnackBar(context, 'revise su cuenta de correo');
+        Navigator.pushNamedAndRemoveUntil(context, "/login", (route) => false);
+        setState(() {
+          _isLoading = false;
+        });
+      } on FirebaseAuthException catch (e) {
+        showSnackBar(context, e.toString());
+      } catch (e) {
+        showSnackBar(context, e.toString());
+      }
+    } else {
       setState(() {
-        _isLoading=false;
+        _isLoading = false;
       });
-      showSnackBar(context, "Ingrese la imagen de perfil");
     }
-    
-
-  }else {
-    setState(() {
-      _isLoading = false;
-    });
   }
-}
-
 
   //Seleccionar una imagen
   void selectedImage() async {
-    image = await pickImageUser(context);
+    imageUser = await pickImageUser(context);
     setState(() {});
   }
 
@@ -104,28 +132,26 @@ void submitRegister() async {
   //     return;
   //   }
 
-    // Crea el objeto Usuario con los datos de los controladores
-    // Usuario usuario = Usuario(
-    //   nombre: nameController.text,
-    //   correoElectronico: emailController.text,
-    //   contrasenia: passwordController.text,
-    //   numeroTelefono: numeroController.text,
-    // );
+  // Crea el objeto Usuario con los datos de los controladores
+  // Usuario usuario = Usuario(
+  //   nombre: nameController.text,
+  //   correoElectronico: emailController.text,
+  //   contrasenia: passwordController.text,
+  //   numeroTelefono: numeroController.text,
+  // );
 
-    // Intenta registrar el usuario y espera la respuesta
-    // bool registroExitoso = await agregarUsuario(usuario);
+  // Intenta registrar el usuario y espera la respuesta
+  // bool registroExitoso = await agregarUsuario(usuario);
 
-    // // Verifica si el registro fue exitoso
-    // if (registroExitoso) {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(content: Text('Usuario registrado exitosamente')));
-    //   Navigator.pushReplacementNamed(context, '/login');
-    // } else {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //       const SnackBar(content: Text('Error al registrar usuario')));
-    // }
-
-  
+  // // Verifica si el registro fue exitoso
+  // if (registroExitoso) {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Usuario registrado exitosamente')));
+  //   Navigator.pushReplacementNamed(context, '/login');
+  // } else {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text('Error al registrar usuario')));
+  // }
 
   @override
   Widget build(BuildContext context) => Container(
@@ -150,8 +176,8 @@ void submitRegister() async {
               },
             ),
           ),
-          body:Form(
-            key:_formKey,
+          body: Form(
+            key: _formKey,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
@@ -159,33 +185,37 @@ void submitRegister() async {
                 color: Colors.greenAccent,
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment:MainAxisAlignment.center ,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SizedBox( height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           selectedImage();
                         },
-                        child: image == null
-                        ? const CircleAvatar(
-                          radius: 60,
-                          backgroundColor: Colors.amberAccent,
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            size: 40,
-                            color: Colors.greenAccent,
-                            ),
-                            
-                        )
-                        : CircleAvatar(
-                          radius: 60,
-                          backgroundImage: FileImage(image),
-                        ),
+                        child: imageUser == null
+                            ? const CircleAvatar(
+                                radius: 60,
+                                backgroundColor: Colors.amberAccent,
+                                child: Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 40,
+                                  color: Colors.greenAccent,
+                                ),
+                              )
+                            : CircleAvatar(
+                                radius: 60,
+                                backgroundImage: FileImage(imageUser!),
+                              ),
                       ),
-                      const SizedBox(height: 20,),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       const Text(
                         'Nombre de usuario',
-                        style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       TextField(
                         decoration: InputDecoration(
@@ -205,7 +235,8 @@ void submitRegister() async {
                       ),
                       const Text(
                         'Correo Electronico',
-                        style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       TextField(
                         decoration: InputDecoration(
@@ -224,7 +255,8 @@ void submitRegister() async {
                       ),
                       const Text(
                         'Contraseña',
-                        style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       TextField(
                         obscureText: true,
@@ -244,7 +276,8 @@ void submitRegister() async {
                       ),
                       const Text(
                         'Numero Telefono',
-                        style: TextStyle(fontSize: 20, color: Colors.blueAccent),
+                        style:
+                            TextStyle(fontSize: 20, color: Colors.blueAccent),
                       ),
                       TextField(
                         decoration: InputDecoration(
@@ -267,14 +300,14 @@ void submitRegister() async {
                       ),
                       TextFormField(
                         decoration: InputDecoration(
-                          border: InputBorder.none,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          filled: true,
-                          fillColor: Colors.amberAccent,
-                          focusColor: Colors.cyanAccent,
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            filled: true,
+                            fillColor: Colors.amberAccent,
+                            focusColor: Colors.cyanAccent,
                             hintText: "dd/mm/yyy",
                             labelText: 'Ingrese la fecha de registro',
                             suffixIcon: IconButton(
@@ -295,20 +328,19 @@ void submitRegister() async {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(20),
-                        child: _isLoading ? const CircularProgressIndicator()
-                        : ElevatedButton(
-                          onPressed: submitRegister,
-                              
-                            // RegisterProvider().registerUser(
-                            //                   name: nameController.text,
-                            //                   correoElectronico:emailController.text,
-                            //                   contrasenia: passwordController.text,
-                            //                   rol: UserRole.user,
-                            //                   image: uploadImage(Image.file(File(Path()))),
-                            //                   );
-                          
-                          child: const Text('Registrarse'),
-                        ),
+                        child: _isLoading
+                            ? const CircularProgressIndicator(
+                                value: BorderSide.strokeAlignCenter,
+                              )
+                            : ElevatedButton(
+                                onPressed: () {
+                                  submitRegister();
+                                  setState(() {
+                                    
+                                  });
+                                },
+                                child: const Text('Registrarse'),
+                              ),
                       ),
                     ],
                   ),

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 Future<File?> pickImageUser(BuildContext context) async {
-  File? image;
+  File? imageUser;
   final picker = ImagePicker();
   final pickedFile = await picker.pickImage(
     source: ImageSource.gallery,
     imageQuality: 50,
     );
   if(pickedFile != null){
-    image = File(pickedFile.path);
+    imageUser = File(pickedFile.path);
   }else {}
-  return image;
+  return imageUser;
 }

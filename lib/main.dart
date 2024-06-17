@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/firebase_options.dart';
+import 'package:mynapopizza/services/local_storage.dart';
+import 'package:mynapopizza/services/register_provider.dart';
 import 'package:provider/provider.dart'; // Importa el paquete provider
 import 'package:mynapopizza/page/login_page.dart';
 import 'package:mynapopizza/page/pizza_form.dart';
@@ -17,6 +19,8 @@ import 'services/login_provider.dart'; // Asegúrate de importar tu LoginProvide
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await LocalStorage().init();
+  final isLogged = LocalStorage().getIsLoggedIn();
   await PushNotificationService.initializeApp();
   await Firebase.initializeApp(
     options:
@@ -25,16 +29,18 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => LoginProvider()), // Añade tu LoginProvider aquí
+        ChangeNotifierProvider(lazy: false, create: (_) => LoginProvider()), // Añade tu LoginProvider aquí
+        ChangeNotifierProvider(lazy: false , create: (_) => RegisterProvider()),// tu LoginProvider aquí
         // Puedes agregar otros providers si es necesario
       ],
-      child: const MyApp(),
+      child: MyApp( isLogged:isLogged ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLogged;
+  const MyApp({super.key, required this.isLogged});
 
   @override
   Widget build(BuildContext context) {

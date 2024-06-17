@@ -27,8 +27,8 @@ Future<void> registerUser({
   required UserRole rol,
   required Function(String) onError,
   required String token,
-  required Function createdAt,
-  required File? image,
+  required String createdAt,
+  required File? imageUser,
 }) async {
   try {
     //convertir el name a minuscula
@@ -55,10 +55,10 @@ Future<void> registerUser({
 
     String imageUrl= '';
 
-    if(image != null) {
+    if(imageUser != null) {
       //imageUrl = await uploadImage('usuarios/$userId.jpg', image);
       String direction = 'usuarios/$user/$userId.jpg';
-      imageUrl = await uploadImage(direction, image); 
+      imageUrl = await uploadImage(direction, imageUser); 
        
     }
 
@@ -84,6 +84,7 @@ Future<void> registerUser({
       } else if (e.code == 'email-already-in-use') {
         onError('El email ya esta en uso');
       }
+  
 
   }
   

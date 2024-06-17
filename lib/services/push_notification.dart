@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mynapopizza/firebase_options.dart';
+import 'package:mynapopizza/utils/showsnacbars.dart';
 
 class PushNotificationService {
   static final FirebaseMessaging _firebaseMessaging = 
@@ -13,7 +14,8 @@ class PushNotificationService {
     options: DefaultFirebaseOptions.currentPlatform
   );
   await _firebaseMessaging.requestPermission();
-  token = await _firebaseMessaging.getToken();
- // print('Token $token');
+  token = await _firebaseMessaging.getToken(); 
+  print(token);
+  
  }
 }
