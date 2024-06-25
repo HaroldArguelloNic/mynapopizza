@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/firebase_options.dart';
+import 'package:mynapopizza/services/cartprovider.dart';
 import 'package:mynapopizza/services/local_storage.dart';
 import 'package:mynapopizza/services/register_provider.dart';
 import 'package:provider/provider.dart'; // Importa el paquete provider
@@ -10,7 +11,7 @@ import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
 import 'package:mynapopizza/page/usuarios_page.dart';
 import 'package:mynapopizza/services/push_notification.dart';
-import 'page/cart.dart';
+import 'page/cartpage.dart';
 import 'page/favoritos.dart';
 import 'page/home_page.dart';
 import 'page/myaccountpage.dart';
@@ -31,6 +32,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(lazy: false, create: (_) => LoginProvider()), // Añade tu LoginProvider aquí
         ChangeNotifierProvider(lazy: false , create: (_) => RegisterProvider()),// tu LoginProvider aquí
+         ChangeNotifierProvider(create: (_) => CartProvider()), //Carrito Provider
         // Puedes agregar otros providers si es necesario
       ],
       child: MyApp( isLogged:isLogged ),

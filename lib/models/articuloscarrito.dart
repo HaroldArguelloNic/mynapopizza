@@ -1,30 +1,28 @@
-import 'package:mynapopizza/models/pizza.dart';
 
 class ArticuloCarrito {
-  final Pizza pizza; // Objeto Pizza asociado al artículo del carrito.
-  final int cantidad; // Cantidad de pizzas en el carrito.
+  final String pizzaId; // ID de la pizza.
+   int cantidad; // Cantidad de pizzas en el carrito.
+  final double precio; // Precio de la pizza en el momento en que se agrega al carrito.
+  final String nombre;
 
   ArticuloCarrito({
-    required this.pizza,
+    required this.pizzaId,
     required this.cantidad,
+    required this.precio,
+    required this.nombre
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'pizza': pizza.toMap(), // Convertimos la pizza a un map para guardarlo en Firestore.
+      'pizzaId': pizzaId, // Guarda el ID de la pizza.
       'cantidad': cantidad,
+      'precio': precio, // Guarda el precio de la pizza en el momento de la compra.
     };
   }
 
   ArticuloCarrito.fromMap(Map<String, dynamic> map)
-      : pizza = Pizza( // Usamos el constructor de Pizza para crear un objeto Pizza
-            id: map["pizza"]["id"],
-            nombre: map["pizza"]["nombre"],
-            precio: map["pizza"]["precio"],
-            rebanadas: map["pizza"]["rebanadas"],
-            tamanio: map["pizza"]["tamaño"],
-            descripcion: map["pizza"]["descripcion"],
-            imageUrl: map["pizza"]["imagenUrl"],
-          ),
-        cantidad = map["cantidad"];
+      : pizzaId = map["pizzaId"],
+        cantidad = map["cantidad"],
+        precio = map["precio"],
+        nombre= map["nombre"];
 }
