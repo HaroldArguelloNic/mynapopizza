@@ -242,11 +242,6 @@ class _HomePageState extends State<HomePage> {
                               pizza['descripcion'] ??
                                   'Descripcion no disponible',
                               pizza['precio'].toString(),
-                              pizza['imageUrl'] ??
-                                  'https://via.placeholder.com/200',
-                              pizza['descripcion'] ??
-                                  'Descripcion no disponible',
-                              pizza['precio'],
                             );
                           }).toList(),
                         );
