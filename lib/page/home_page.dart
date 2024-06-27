@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/services/cartprovider.dart';
 import 'package:mynapopizza/page/login_page.dart';
 import 'package:mynapopizza/services/login_provider.dart';
 import 'package:mynapopizza/services/pizza_service.dart';
@@ -226,6 +227,8 @@ class _HomePageState extends State<HomePage> {
                       } else if (snapshot.hasError) {
                         return Text(
                             'Error al obtener las pizzas: ${snapshot.error}');
+                        return Text(
+                            'Error al obtener las pizzas: ${snapshot.error}');
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return const Text('No se encontraron pizzas');
                       } else {
@@ -239,6 +242,11 @@ class _HomePageState extends State<HomePage> {
                               pizza['descripcion'] ??
                                   'Descripcion no disponible',
                               pizza['precio'].toString(),
+                              pizza['imageUrl'] ??
+                                  'https://via.placeholder.com/200',
+                              pizza['descripcion'] ??
+                                  'Descripcion no disponible',
+                              pizza['precio'],
                             );
                           }).toList(),
                         );
