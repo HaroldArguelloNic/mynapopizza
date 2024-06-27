@@ -7,7 +7,7 @@ class CarritoService {
       FirebaseFirestore.instance.collection('carritos');
 
   // Método para guardar el carrito en Firestore
-  Future<void> guardarCarrito(String usuarioId, List<ArticuloCarrito> articulos) async {
+  Future<void> guardarCarrito(String usuarioId, List<ArticuloCarrito> articulos, DateTime fechaPedido) async {
     // Generar un nuevo ID para el carrito
     String carritoId = _carritosCollection.doc().id;
 
@@ -23,6 +23,7 @@ class CarritoService {
       'usuarioId': usuarioId,
       'articulos': articulos.map((articulo) => articulo.toMap()).toList(),
       'totalPedido': totalPedido,
+      'fechaPedido': fechaPedido,
     };
 
     await carritoDocRef.set(carritoData);
@@ -44,7 +45,7 @@ class CarritoService {
   }
 
   // Método para agregar un artículo al carrito existente en Firestore
-  Future<void> agregarArticuloAlCarrito(String usuarioId, ArticuloCarrito nuevoArticulo) async {
+  Future<void> agregarArticuloAlCarrito(String usuarioId, ArticuloCarrito nuevoArticulo, DateTime fechaPedido) async {
     var carrito = await obtenerCarrito(usuarioId);
 
     if (carrito != null) {
@@ -54,10 +55,10 @@ class CarritoService {
       } else {
         carrito.articulos.add(nuevoArticulo);
       }
-      await guardarCarrito(usuarioId, carrito.articulos);
+      await guardarCarrito(usuarioId, carrito.articulos, fechaPedido);
     } else {
-      var nuevoCarrito = Carrito(usuarioId: usuarioId, articulos: [nuevoArticulo], totalPedido: 0.0);
-      await guardarCarrito(usuarioId, nuevoCarrito.articulos);
+      var nuevoCarrito = Carrito(usuarioId: usuarioId, articulos: [nuevoArticulo], totalPedido: 0.0, fechaPedido: fechaPedido);
+      await guardarCarrito(usuarioId, nuevoCarrito.articulos, fechaPedido);
     }
   }
 }

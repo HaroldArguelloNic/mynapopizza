@@ -40,6 +40,7 @@ class _CartScreenState extends State<CartScreen> {
                     )
                   : Expanded(
                       child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
                         child: DataTable(
                           columns: const [
                             DataColumn(label: Text('Nombre')),
@@ -52,7 +53,6 @@ class _CartScreenState extends State<CartScreen> {
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  // Utilizamos el Text con maxLines para manejar texto largo
                                   Text(
                                     item.nombre,
                                     overflow: TextOverflow.ellipsis,
@@ -127,7 +127,7 @@ class _CartScreenState extends State<CartScreen> {
                         }).toList();
 
                         // Guardar el carrito en Firestore con el uid del usuario
-                        await carritoService.guardarCarrito(user!.uid, articulos);
+                        await carritoService.guardarCarrito(user!.uid, articulos, DateTime.now());
 
                         // Limpiar el carrito local después de guardar en Firestore
                         cartProvider.clearCart();

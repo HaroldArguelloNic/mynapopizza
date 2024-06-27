@@ -6,12 +6,14 @@ class Carrito {
   final String usuarioId; // Identificador del usuario al que pertenece el carrito.
   final List<ArticuloCarrito> articulos; // Lista de artículos en el carrito.
   final double totalPedido; // Total del pedido en el carrito.
+  final DateTime fechaPedido;
 
   Carrito({
     this.id,
     required this.usuarioId,
     required this.articulos,
     required this.totalPedido,
+    required this.fechaPedido
   });
 
   Map<String, dynamic> toMap() {
@@ -19,6 +21,7 @@ class Carrito {
       'usuarioId': usuarioId,
       'articulos': articulos.map((item) => item.toMap()).toList(),
       'totalPedido': totalPedido,
+      'fechaPedido':fechaPedido,
     };
   }
 
@@ -28,5 +31,6 @@ class Carrito {
         articulos = (doc.data()!['articulos'] as List<dynamic>)
             .map((item) => ArticuloCarrito.fromMap(item as Map<String, dynamic>))
             .toList(),
-        totalPedido = doc.data()!['totalPedido'];
+        totalPedido = doc.data()!['totalPedido'],
+        fechaPedido = doc.data()!['fechaPedido'];
 }
