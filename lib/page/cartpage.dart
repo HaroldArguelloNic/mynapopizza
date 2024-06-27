@@ -24,7 +24,8 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final carritoService = CarritoService(); // Instancia del servicio CarritoService
+    final carritoService =
+        CarritoService(); // Instancia del servicio CarritoService
 
     return Scaffold(
       appBar: AppBar(
@@ -59,7 +60,8 @@ class _CartScreenState extends State<CartScreen> {
                                     maxLines: 3,
                                   ),
                                 ), // Mostrar nombre de la pizza
-                                DataCell(Text('\$${item.precio.toStringAsFixed(2)}')),
+                                DataCell(Text(
+                                    '\$${item.precio.toStringAsFixed(2)}')),
                                 DataCell(
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -67,28 +69,33 @@ class _CartScreenState extends State<CartScreen> {
                                       IconButton(
                                         icon: const Icon(Icons.remove),
                                         onPressed: () {
-                                          cartProvider.decrementQuantity(item.pizzaId);
+                                          cartProvider
+                                              .decrementQuantity(item.pizzaId);
                                         },
                                       ),
                                       Text(item.cantidad.toString()),
                                       IconButton(
                                         icon: const Icon(Icons.add),
                                         onPressed: () {
-                                          cartProvider.incrementQuantity(item.pizzaId);
+                                          cartProvider
+                                              .incrementQuantity(item.pizzaId);
                                         },
                                       ),
                                     ],
                                   ),
                                 ),
-                                DataCell(Text('\$${(item.precio * item.cantidad).toStringAsFixed(2)}')),
+                                DataCell(Text(
+                                    '\$${(item.precio * item.cantidad).toStringAsFixed(2)}')),
                                 DataCell(
                                   IconButton(
                                     icon: const Icon(Icons.delete),
                                     onPressed: () {
                                       cartProvider.removeFromCart(item.pizzaId);
-                                      ScaffoldMessenger.of(context).showSnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
                                         SnackBar(
-                                          content: Text('${item.nombre} eliminado del carrito'),
+                                          content: Text(
+                                              '${item.nombre} eliminado del carrito'),
                                         ),
                                       );
                                     },
@@ -117,7 +124,8 @@ class _CartScreenState extends State<CartScreen> {
                         }
 
                         // Obtener los artículos del carrito actual
-                        List<ArticuloCarrito> articulos = cartProvider.items.map((item) {
+                        List<ArticuloCarrito> articulos =
+                            cartProvider.items.map((item) {
                           return ArticuloCarrito(
                             pizzaId: item.pizzaId,
                             precio: item.precio,
@@ -127,14 +135,16 @@ class _CartScreenState extends State<CartScreen> {
                         }).toList();
 
                         // Guardar el carrito en Firestore con el uid del usuario
-                        await carritoService.guardarCarrito(user!.uid, articulos, DateTime.now());
+                        await carritoService.guardarCarrito(
+                            user!.uid, articulos, DateTime.now());
 
                         // Limpiar el carrito local después de guardar en Firestore
                         cartProvider.clearCart();
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                            content: Text('Pedido confirmado y carrito guardado en Firebase'),
+                            content: Text(
+                                'Pedido confirmado y carrito guardado en Firebase'),
                           ),
                         );
                       },
@@ -146,10 +156,10 @@ class _CartScreenState extends State<CartScreen> {
                         cartProvider.clearCart();
                         Navigator.pop(context);
                       },
-                      child: const Text('Cancelar Pedido'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                       ),
+                      child: const Text('Cancelar Pedido'),
                     ),
                   ],
                 ),
@@ -158,7 +168,8 @@ class _CartScreenState extends State<CartScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'Total Pedido: ${cartProvider.items.isNotEmpty ? '\$${cartProvider.getTotalPrice().toStringAsFixed(2)}' : '0.00'}',
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
