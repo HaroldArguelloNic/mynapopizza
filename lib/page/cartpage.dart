@@ -52,13 +52,11 @@ class _CartScreenState extends State<CartScreen> {
                             return DataRow(
                               cells: [
                                 DataCell(
-                                  // Utilizamos Flexible para manejar texto largo
-                                  Flexible(
-                                    child: Text(
-                                      item.nombre,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                    ),
+                                  // Utilizamos el Text con maxLines para manejar texto largo
+                                  Text(
+                                    item.nombre,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 3,
                                   ),
                                 ), // Mostrar nombre de la pizza
                                 DataCell(Text('\$${item.precio.toStringAsFixed(2)}')),
