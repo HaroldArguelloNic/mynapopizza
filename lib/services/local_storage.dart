@@ -44,7 +44,7 @@ Future<dynamic> getUserData(String usernameOrEmail) async {
 
 //devolver datos del usuario
   return {
-    'uernameOrEmail': usernameOrEmail,
+    'usernameOrEmail': usernameOrEmail,
     'contrasenia': contrasenia
   };
 }

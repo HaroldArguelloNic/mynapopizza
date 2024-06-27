@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mynapopizza/services/firebase_service.dart';
 
 class UsuariosPage extends StatefulWidget {
-  const UsuariosPage({super.key});
+  const UsuariosPage({super.key, required userData});
 
   @override
   State<UsuariosPage> createState() => _UsuariosPageState();

@@ -9,11 +9,11 @@ import 'package:mynapopizza/page/pizza_form.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
 import 'package:mynapopizza/page/usuarios_page.dart';
+import 'package:mynapopizza/page/myaccountpage.dart';
 import 'package:mynapopizza/services/push_notification.dart';
 import 'page/cart.dart';
 import 'page/favoritos.dart';
 import 'page/home_page.dart';
-import 'page/myaccountpage.dart';
 import 'page/producto_page.dart';
 import 'services/login_provider.dart'; // Asegúrate de importar tu LoginProvider aquí
 
@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
         '/producto': (context) => const ProductoPage(),
         '/miorden': (context) => const CartScreen(),
         '/miperfil': (context) => const MyAccountPage(),
-        '/usuarios': (context) => const UsuariosPage(),
+        '/usuarios': (context) => const UsuariosPage(userData: null,),
         '/formPizza': (context) => const PizzaForm(),
         '/registrousuario': (context) => const RegistrationPage(),
         '/login': (context) => const  LoginPage(),
