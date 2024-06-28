@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:mynapopizza/page/login_page.dart';
 
 class HomeAdmin extends StatelessWidget {
-  const HomeAdmin({super.key, required userData});
+  final Map? userData;
+  const HomeAdmin({super.key, this.userData});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +21,20 @@ class HomeAdmin extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
-                const DrawerHeader(
+                DrawerHeader(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(224, 132, 46, 0.71),
-                    ),
-                    child: Text('Menu')),
+                        color: const Color.fromRGBO(224, 132, 46, 0.71),
+                        image: DecorationImage(
+                            image: NetworkImage(userData!['image']))),
+                    child: const Text(
+                      'Menu',
+                      style: TextStyle(
+                        backgroundColor: Colors.black,
+                        color: Colors.amber,
+                        fontSize: 20,
+                        letterSpacing: 2,
+                      ),
+                    )),
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: ListTile(
@@ -127,6 +138,35 @@ class HomeAdmin extends StatelessWidget {
             title: const Text(
               'Administracion MyNapoPizza',
               style: TextStyle(color: Colors.green),
+            ),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 50,
+                ),
+                CircleAvatar(
+                  backgroundImage: NetworkImage(userData!['image']),
+                  radius: 100,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Bienvenido Administrador ${userData!['name']}",
+                  style: const TextStyle(
+                      fontSize: 20, backgroundColor: Colors.amber),
+                ),
+                Text(
+                  "Correo Electronico ${userData!['correoElectronico']}",
+                  style: const TextStyle(
+                      fontSize: 14, backgroundColor: Colors.amber),
+                ),
+              ],
             ),
           ),
         ));
