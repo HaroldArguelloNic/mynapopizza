@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mynapopizza/page/home_admin.dart';
 import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/services/local_storage.dart';
@@ -71,10 +72,17 @@ class _LoginPageState extends State<LoginPage> {
               //cambiar estado de autenticacion
               loginProvider.authStatus;
               //navega a la pagina principal
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
-                return HomePage(userData: userData);
-              }));
+              if (userData['rol'] == 'user') {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return HomePage(userData: userData);
+                }));
+              } else if (userData['rol'] == 'admin') {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) {
+                  return HomeAdmin(userData: userData);
+                }));
+              }
             } else {
               setState(() {
                 _isLoading = false;
