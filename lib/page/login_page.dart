@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/home_page.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/services/local_storage.dart';
-import 'package:mynapopizza/services/push_notification.dart';
+
 import 'package:mynapopizza/utils/showsnacbars.dart';
 import 'package:mynapopizza/validators/validator.dart';
 import 'package:provider/provider.dart';
@@ -27,12 +27,9 @@ class _LoginPageState extends State<LoginPage> {
   late bool _isObscure = true;
   bool _isLoading = false;
 
-  static String? token;
-
   @override
   void initState() {
     super.initState();
-    token = PushNotificationService.token;
   }
 
   @override
@@ -102,11 +99,10 @@ class _LoginPageState extends State<LoginPage> {
           },
           onError: (String error) {
             setState(() {
-              _isLoading= false;
+              _isLoading = false;
             });
             showSnackBar(context, error.toString());
-          }
-          );
+          });
     } else {}
     setState(() {
       _isLoading = false;
@@ -208,11 +204,9 @@ class _LoginPageState extends State<LoginPage> {
                             // Botón de inicio de sesión
                             : ElevatedButton.icon(
                                 onPressed: () {
-                                  onFormLogin(
-                                    _nameOrEmailController.text,
-                                    _contraseniaController.text,
-                                    context);
-                                    },
+                                  onFormLogin(_nameOrEmailController.text,
+                                      _contraseniaController.text, context);
+                                },
                                 icon: const Icon(Icons.door_front_door_rounded),
                                 label: const Text(
                                   'Login',

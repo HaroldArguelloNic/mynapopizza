@@ -227,8 +227,6 @@ class _HomePageState extends State<HomePage> {
                       } else if (snapshot.hasError) {
                         return Text(
                             'Error al obtener las pizzas: ${snapshot.error}');
-                        return Text(
-                            'Error al obtener las pizzas: ${snapshot.error}');
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                         return const Text('No se encontraron pizzas');
                       } else {
@@ -340,41 +338,41 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                     height: 10), // Espacio entre la descripción y el botón
                 Align(
-  alignment: Alignment.bottomRight,
-  child: Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      IconButton(
-        icon: const Icon(Icons.favorite_outline),
-        color: Colors.red,
-        onPressed: () async {
-          _showToast(context);
-          // Probando función de agregar pizzafavorita a lista de pizzas usuario
-          // Falta obtener uid de la sesión de usuario y extraer la de pizza
-          // Prueba de funcionalidad de la función
-          agregarPizzaFavorita(user!.uid, pizzaUid);
-        },
-      ),
-      IconButton(
-        icon: const Icon(Icons.shopping_cart),
-        onPressed: () {
-          Provider.of<CartProvider>(context, listen: false).addToCart(
-            nombre,
-            pizzaUid,
-            precio,
-          );
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text("Pizza agregada al carrito"),
-              duration: Duration(seconds: 2),
-            ),
-          );
-        },
-      ),
-    ],
-  ),
-)
-
+                  alignment: Alignment.bottomRight,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.favorite_outline),
+                        color: Colors.red,
+                        onPressed: () async {
+                          _showToast(context);
+                          // Probando función de agregar pizzafavorita a lista de pizzas usuario
+                          // Falta obtener uid de la sesión de usuario y extraer la de pizza
+                          // Prueba de funcionalidad de la función
+                          agregarPizzaFavorita(user!.uid, pizzaUid);
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.shopping_cart),
+                        onPressed: () {
+                          Provider.of<CartProvider>(context, listen: false)
+                              .addToCart(
+                            nombre,
+                            pizzaUid,
+                            precio,
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Pizza agregada al carrito"),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

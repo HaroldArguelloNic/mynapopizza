@@ -24,18 +24,22 @@ Future<void> main() async {
   final isLogged = LocalStorage().getIsLoggedIn();
   await PushNotificationService.initializeApp();
   await Firebase.initializeApp(
-    options:
-      DefaultFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(lazy: false, create: (_) => LoginProvider()), // Añade tu LoginProvider aquí
-        ChangeNotifierProvider(lazy: false , create: (_) => RegisterProvider()),// tu LoginProvider aquí
-         ChangeNotifierProvider(create: (_) => CartProvider()), //Carrito Provider
+        ChangeNotifierProvider(
+            lazy: false,
+            create: (_) => LoginProvider()), // Añade tu LoginProvider aquí
+        ChangeNotifierProvider(
+            lazy: false,
+            create: (_) => RegisterProvider()), // tu LoginProvider aquí
+        ChangeNotifierProvider(
+            create: (_) => CartProvider()), //Carrito Provider
         // Puedes agregar otros providers si es necesario
       ],
-      child: MyApp( isLogged:isLogged ),
+      child: MyApp(isLogged: isLogged),
     ),
   );
 }
@@ -48,17 +52,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(), // Cambia la pantalla de inicio según tus necesidades
+      home:
+          const SplashScreen(), // Cambia la pantalla de inicio según tus necesidades
       routes: {
-        '/home': (context) => const HomePage(userData: null,),
+        '/home': (context) => const HomePage(
+              userData: null,
+            ),
         '/favoritos': (context) => const FavoritosPage(),
         '/producto': (context) => const ProductoPage(),
         '/miorden': (context) => const CartScreen(),
         '/miperfil': (context) => const MyAccountPage(),
-        '/usuarios': (context) => const UsuariosPage(userData: null,),
+        '/usuarios': (context) => const UsuariosPage(
+              userData: null,
+            ),
         '/formPizza': (context) => const PizzaForm(),
         '/registrousuario': (context) => const RegistrationPage(),
-        '/login': (context) => const  LoginPage(),
+        '/login': (context) => const LoginPage(),
       },
     );
   }

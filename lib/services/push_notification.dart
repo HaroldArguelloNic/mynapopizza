@@ -3,18 +3,16 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mynapopizza/firebase_options.dart';
 
 class PushNotificationService {
-  static final FirebaseMessaging _firebaseMessaging = 
-  FirebaseMessaging.instance;
+  static final FirebaseMessaging _firebaseMessaging =
+      FirebaseMessaging.instance;
 
- static String? token;
+  static String? token;
 
- static Future initializeApp() async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
-  );
-  await _firebaseMessaging.requestPermission();
-  token = await _firebaseMessaging.getToken(); 
-  print(token);
-  
- }
+  static Future initializeApp() async {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
+    await _firebaseMessaging.requestPermission();
+    token = await _firebaseMessaging.getToken();
+    //print(token);
+  }
 }
