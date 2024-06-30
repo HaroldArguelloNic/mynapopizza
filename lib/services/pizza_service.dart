@@ -1,5 +1,5 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:mynapopizza/models/pizza.dart';
 
 final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -14,6 +14,16 @@ Future<bool> agregarPizza(Pizza pizza) async {
   }
 }
 
+Future<bool> updatePizza(Pizza pizza) async {
+  try {
+    await _db.doc('pizzas').set(pizza as Map<String, dynamic>);
+    return true;
+  } catch (e) {
+    Text('Error $e');
+    return false;
+  }
+}
+
 Future<List<Map<String, dynamic>>> listaPizzas() async {
   try {
     List<Map<String, dynamic>> pizzas = [];
@@ -22,7 +32,8 @@ Future<List<Map<String, dynamic>>> listaPizzas() async {
 
     for (var documento in queryPizzas.docs) {
       Map<String, dynamic> pizzaData = documento.data() as Map<String, dynamic>;
-      pizzaData['id'] = documento.id; // Agregar el campo 'id' al mapa de datos de la pizza
+      pizzaData['id'] =
+          documento.id; // Agregar el campo 'id' al mapa de datos de la pizza
       pizzas.add(pizzaData);
     }
 
@@ -32,4 +43,3 @@ Future<List<Map<String, dynamic>>> listaPizzas() async {
     return [];
   }
 }
-
