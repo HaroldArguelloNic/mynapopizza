@@ -1,22 +1,25 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/firebase_options.dart';
-import 'package:mynapopizza/services/cartprovider.dart';
-import 'package:mynapopizza/services/local_storage.dart';
-import 'package:mynapopizza/services/register_provider.dart';
-import 'package:provider/provider.dart'; // Importa el paquete provider
+import 'package:mynapopizza/page/lista_carrito_usuario.dart';
 import 'package:mynapopizza/page/login_page.dart';
+import 'package:mynapopizza/page/myaccountpage.dart';
 import 'package:mynapopizza/page/pizza_form.dart';
 import 'package:mynapopizza/page/registration_page.dart';
 import 'package:mynapopizza/page/splash_screen.dart';
 import 'package:mynapopizza/page/usuarios_page.dart';
-import 'package:mynapopizza/page/myaccountpage.dart';
-import 'package:mynapopizza/services/push_notification.dart';
+import 'package:mynapopizza/services/cartprovider.dart';
+import 'package:mynapopizza/services/register_provider.dart';
+import 'package:provider/provider.dart';
+
 import 'page/cartpage.dart';
 import 'page/favoritos.dart';
 import 'page/home_page.dart';
 import 'page/producto_page.dart';
-import 'services/login_provider.dart'; // Asegúrate de importar tu LoginProvider aquí
+import 'services/local_storage.dart';
+import 'services/login_provider.dart';
+import 'services/push_notification.dart'; // Asegúrate de importar tu LoginProvider aquí
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,6 +71,7 @@ class MyApp extends StatelessWidget {
         '/formPizza': (context) => const PizzaForm(),
         '/registrousuario': (context) => const RegistrationPage(),
         '/login': (context) => const LoginPage(),
+        '/listaPedidos':(context)=> const PedidosPage()
       },
     );
   }

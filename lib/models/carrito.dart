@@ -25,12 +25,12 @@ class Carrito {
     };
   }
 
-  Carrito.fromDocumentSnapshot(DocumentSnapshot<Map<String, dynamic>> doc)
+ Carrito.fromDocumentSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> doc)
       : id = doc.id,
-        usuarioId = doc.data()!['usuarioId'],
-        articulos = (doc.data()!['articulos'] as List<dynamic>)
-            .map((item) => ArticuloCarrito.fromMap(item as Map<String, dynamic>))
+        usuarioId = doc.data()['usuarioId'],
+        articulos = (doc.data()['articulos'] as List<dynamic>)
+            .map((item) => ArticuloCarrito.fromMap(item))
             .toList(),
-        totalPedido = doc.data()!['totalPedido'],
-        fechaPedido = doc.data()!['fechaPedido'];
+        totalPedido = doc.data()['totalPedido'],
+        fechaPedido = (doc.data()['fechaPedido'] as Timestamp).toDate();
 }

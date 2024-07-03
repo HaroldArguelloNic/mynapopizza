@@ -116,6 +116,21 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => Navigator.pushNamed(context, '/miperfil'),
                 ),
               ),
+               Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.list_sharp,
+                    color: Colors.purple,
+                  ),
+                  title: const Text(
+                    'Mis Pedidos',
+                    style: TextStyle(color: Colors.indigo),
+                    textAlign: TextAlign.center,
+                  ),
+                  onTap: () => Navigator.pushNamed(context, '/listaPedidos'),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ListTile(
@@ -136,6 +151,7 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => const LoginPage()));
                     }),
               ),
+              
             ],
           ),
         ),
