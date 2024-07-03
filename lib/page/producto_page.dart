@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mynapopizza/page/pizza_form.dart';
-import 'package:mynapopizza/services/pizza_service.dart'; // Importa la función listaPizzas desde el servicio de pizza
+import 'package:mynapopizza/services/pizza_service.dart';
+import 'edita_pizza.dart'; // Importa la función listaPizzas desde el servicio de pizza
 
 class ProductoPage extends StatefulWidget {
   const ProductoPage({super.key});
@@ -12,7 +12,7 @@ class ProductoPage extends StatefulWidget {
 
 class ProductoPageState extends State<ProductoPage> {
   late Future<List<Map<String, dynamic>>> _futurePizzas;
-
+  String? idPizza;
   @override
   void initState() {
     super.initState();
@@ -31,55 +31,8 @@ class ProductoPageState extends State<ProductoPage> {
     );
   }
 
-  final pizzaCollection = FirebaseFirestore.instance.collection('pizzas');
-  Future<void> editfield(String field) async {
-    String newValue = "";
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.grey[900],
-        title: Text(
-          'Edit $field',
-          style: const TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        content: TextField(
-          autofocus: true,
-          style: const TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-              hintText: 'Entre el nuevo $field',
-              hintStyle: const TextStyle(color: Colors.grey)),
-          onChanged: (value) {
-            newValue = value;
-          },
-        ),
-        actions: [
-          // cancel button
-          TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text(
-                'Cancelar',
-                style: TextStyle(color: Colors.white),
-              )),
-          //save button
-          TextButton(
-              onPressed: () => Navigator.of(context).pop(newValue),
-              child: const Text(
-                'Guardar',
-                style: TextStyle(color: Colors.white),
-              ))
-        ],
-      ),
-    );
-    //update in FIrestore
-    if (newValue.trim().length > 0) {
-      await pizzaCollection.doc().update({field: newValue});
-    }
-  }
-
-  Widget _buildPizzaCard(
-      String nombre, String imageUrl, String descripcion, String precio) {
+  Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion,
+      String precio, String id) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(8.0),
@@ -138,7 +91,13 @@ class ProductoPageState extends State<ProductoPage> {
                         )),
                     IconButton(
                         onPressed: () {
-                          editPizza();
+                          idPizza = id;
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return EditaPizza(
+                              idPizza: '$idPizza',
+                            );
+                          }));
                         },
                         icon: const Icon(
                           Icons.edit,
@@ -199,8 +158,11 @@ class ProductoPageState extends State<ProductoPage> {
                       'https://via.placeholder.com/200', // URL de imagen de respaldo si no se proporciona una
                   pizza['descripcion'] ?? 'Descripción no disponible',
                   pizza['precio'] != null
-                      ? pizza['precio'].toString()
-                      : 'Precio no disponible', // Convierte el precio en cadena si está presente
+                      ? pizza['precio']
+                          .toString() // convierte el precion en cadena si esta presenta
+                      : 'Precio no disponible',
+                  pizza['id'] ??
+                      'id no disponible', // Convierte el precio en cadena si está presente
                 );
               },
             );
