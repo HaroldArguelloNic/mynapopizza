@@ -16,7 +16,8 @@ class ArticuloCarrito {
     return {
       'pizzaId': pizzaId, // Guarda el ID de la pizza.
       'cantidad': cantidad,
-      'precio': precio, // Guarda el precio de la pizza en el momento de la compra.
+      'precio': precio,// Guarda el precio de la pizza en el momento de la compra.
+      'nombre':nombre, 
     };
   }
 

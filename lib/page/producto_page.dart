@@ -13,11 +13,11 @@ class ProductoPage extends StatefulWidget {
 class ProductoPageState extends State<ProductoPage> {
   late Future<List<Map<String, dynamic>>> _futurePizzas;
   String? idPizza;
+
   @override
   void initState() {
     super.initState();
-    _futurePizzas =
-        listaPizzas(); // Obtiene la lista de pizzas al iniciar la página
+    _futurePizzas = listaPizzas(); // Obtiene la lista de pizzas al iniciar la página
   }
 
   void _registerPizza(BuildContext context) {
@@ -29,6 +29,12 @@ class ProductoPageState extends State<ProductoPage> {
         );
       },
     );
+  }
+
+  void _refreshPizzaList() {
+    setState(() {
+      _futurePizzas = listaPizzas(); // Vuelve a cargar la lista de pizzas
+    });
   }
 
   Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion,
@@ -63,8 +69,7 @@ class ProductoPageState extends State<ProductoPage> {
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                    height: 5), // Espacio entre el nombre y el precio
+                const SizedBox(height: 5), // Espacio entre el nombre y el precio
                 Text(
                   'Precio: \$$precio',
                   style: const TextStyle(
@@ -72,37 +77,37 @@ class ProductoPageState extends State<ProductoPage> {
                       color: Colors.green,
                       fontWeight: FontWeight.bold), // Estilo del precio
                 ),
-                const SizedBox(
-                    height: 5), // Espacio entre el precio y la descripción
+                const SizedBox(height: 5), // Espacio entre el precio y la descripción
                 Text(
                   'Descripción: $descripcion',
                   style: const TextStyle(fontSize: 16),
                 ),
-                const SizedBox(
-                    height: 10), // Espacio entre la descripción y el botón
+                const SizedBox(height: 10), // Espacio entre la descripción y el botón
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        )),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
                     IconButton(
-                        onPressed: () {
-                          idPizza = id;
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return EditaPizza(
-                              idPizza: '$idPizza',
-                            );
-                          }));
-                        },
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.green,
-                        ))
+                      onPressed: () {
+                        idPizza = id;
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return EditaPizza(idPizza: '$idPizza');
+                        })).then((value) {
+                          _refreshPizzaList(); // Refresca la lista de pizzas después de la edición
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.edit,
+                        color: Colors.green,
+                      ),
+                    )
                   ],
                 )
               ],
@@ -120,8 +125,7 @@ class ProductoPageState extends State<ProductoPage> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         image: DecorationImage(
-          image: NetworkImage(
-              imagePath), // Usa NetworkImage para cargar la imagen desde una URL
+          image: NetworkImage(imagePath), // Usa NetworkImage para cargar la imagen desde una URL
           fit: BoxFit.cover,
         ),
       ),
@@ -158,11 +162,9 @@ class ProductoPageState extends State<ProductoPage> {
                       'https://via.placeholder.com/200', // URL de imagen de respaldo si no se proporciona una
                   pizza['descripcion'] ?? 'Descripción no disponible',
                   pizza['precio'] != null
-                      ? pizza['precio']
-                          .toString() // convierte el precion en cadena si esta presenta
+                      ? pizza['precio'].toString() // convierte el precion en cadena si esta presenta
                       : 'Precio no disponible',
-                  pizza['id'] ??
-                      'id no disponible', // Convierte el precio en cadena si está presente
+                  pizza['id'] ?? 'id no disponible', // Convierte el precio en cadena si está presente
                 );
               },
             );
