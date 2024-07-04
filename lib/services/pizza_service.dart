@@ -9,7 +9,7 @@ Future<bool> agregarPizza(Pizza pizza) async {
     await _db.collection('pizzas').add(pizza.toMap());
     return true;
   } catch (e) {
-    print('Error al registrar la pizza: $e');
+    Text('Error al registrar la pizza: $e');
     return false;
   }
 }
@@ -39,7 +39,7 @@ Future<List<Map<String, dynamic>>> listaPizzas() async {
 
     return pizzas;
   } catch (e) {
-    print("Ocurrió un error al obtener las pizzas: $e");
+    Text("Ocurrió un error al obtener las pizzas: $e");
     return [];
   }
 }

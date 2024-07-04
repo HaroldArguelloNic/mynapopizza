@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class CartItem {
-  final String pizzaId; 
-  final double precio; 
-  final String nombre; 
-  int cantidad; 
-  
+  final String pizzaId;
+  final double precio;
+  final String nombre;
+  int cantidad;
+
   CartItem({
     required this.pizzaId,
     required this.precio,
@@ -16,7 +16,7 @@ class CartItem {
 
 // Clase del proveedor del carrito
 class CartProvider extends ChangeNotifier {
-  List<CartItem> _items = [];
+  final List<CartItem> _items = [];
 
   // Getter para obtener la lista de elementos del carrito
   List<CartItem> get items => [..._items];
@@ -33,7 +33,6 @@ class CartProvider extends ChangeNotifier {
         nombre: nombre,
         pizzaId: pizzaId,
         precio: precio,
-        
       ));
     }
     notifyListeners(); // Notifica a los listeners que el estado ha cambiado
@@ -42,7 +41,7 @@ class CartProvider extends ChangeNotifier {
   // Método para eliminar un artículo del carrito
   void removeFromCart(String pizzaId) {
     _items.removeWhere((item) => item.pizzaId == pizzaId);
-    notifyListeners(); 
+    notifyListeners();
   }
 
   // Método para incrementar la cantidad de un artículo
@@ -50,7 +49,7 @@ class CartProvider extends ChangeNotifier {
     var index = _items.indexWhere((item) => item.pizzaId == pizzaId);
     if (index != -1) {
       _items[index].cantidad++;
-      notifyListeners(); 
+      notifyListeners();
     }
   }
 
@@ -59,7 +58,7 @@ class CartProvider extends ChangeNotifier {
     var index = _items.indexWhere((item) => item.pizzaId == pizzaId);
     if (index != -1 && _items[index].cantidad > 1) {
       _items[index].cantidad--;
-      notifyListeners(); 
+      notifyListeners();
     }
   }
 
@@ -80,6 +79,6 @@ class CartProvider extends ChangeNotifier {
   // Método para limpiar el carrito (eliminar todos los elementos)
   void clearCart() {
     _items.clear();
-    notifyListeners(); 
+    notifyListeners();
   }
 }

@@ -12,7 +12,7 @@ class FavoritosPage extends StatefulWidget {
 }
 
 class _FavoritosPageState extends State<FavoritosPage> {
-   User? user;
+  User? user;
 
   @override
   void initState() {
@@ -34,16 +34,24 @@ class _FavoritosPageState extends State<FavoritosPage> {
   }
 
   // Función para obtener las pizzas favoritas del usuario
-  Future<List<Map<String, dynamic>>> obtenerPizzasFavoritas(String uidUsuario) async {
+  Future<List<Map<String, dynamic>>> obtenerPizzasFavoritas(
+      String uidUsuario) async {
     try {
-      DocumentSnapshot usuarioDoc = await FirebaseFirestore.instance.collection('usuarios').doc(uidUsuario).get();
-      List<String> favoritasUids = List<String>.from(usuarioDoc.get('favoritePizzas') ?? []);
+      DocumentSnapshot usuarioDoc = await FirebaseFirestore.instance
+          .collection('usuarios')
+          .doc(uidUsuario)
+          .get();
+      List<String> favoritasUids =
+          List<String>.from(usuarioDoc.get('favoritePizzas') ?? []);
 
       if (favoritasUids.isEmpty) return [];
 
       List<Map<String, dynamic>> favoritas = [];
       for (String uid in favoritasUids) {
-        DocumentSnapshot pizzaDoc = await FirebaseFirestore.instance.collection('pizzas').doc(uid).get();
+        DocumentSnapshot pizzaDoc = await FirebaseFirestore.instance
+            .collection('pizzas')
+            .doc(uid)
+            .get();
         if (pizzaDoc.exists) {
           favoritas.add(pizzaDoc.data() as Map<String, dynamic>);
         }
@@ -51,7 +59,7 @@ class _FavoritosPageState extends State<FavoritosPage> {
 
       return favoritas;
     } catch (e) {
-      print("Ocurrió un error al obtener las pizzas favoritas: $e");
+      Text("Ocurrió un error al obtener las pizzas favoritas: $e");
       return [];
     }
   }
@@ -78,7 +86,8 @@ class _FavoritosPageState extends State<FavoritosPage> {
               ); // Muestra un indicador de carga mientras se obtiene la lista de pizzas favoritas
             } else if (snapshot.hasError) {
               return Center(
-                child: Text('Error al obtener las pizzas favoritas: ${snapshot.error}'),
+                child: Text(
+                    'Error al obtener las pizzas favoritas: ${snapshot.error}'),
               );
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(
@@ -103,7 +112,8 @@ class _FavoritosPageState extends State<FavoritosPage> {
     );
   }
 
-  Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion, String precio, String pizzaUid) {
+  Widget _buildPizzaCard(String nombre, String imageUrl, String descripcion,
+      String precio, String pizzaUid) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.all(8.0),
@@ -134,23 +144,28 @@ class _FavoritosPageState extends State<FavoritosPage> {
                 Text(
                   nombre,
                   textAlign: TextAlign.center, // Centra el texto
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 5), // Espacio entre el nombre y el precio
+                const SizedBox(
+                    height: 5), // Espacio entre el nombre y el precio
                 Text(
                   'Precio: \$${precio}',
                   style: const TextStyle(
                     fontSize: 16,
                     color: Colors.green, // Cambia el color del texto del precio
-                    fontWeight: FontWeight.bold, // Utiliza una fuente en negrita para resaltarlo
+                    fontWeight: FontWeight
+                        .bold, // Utiliza una fuente en negrita para resaltarlo
                   ),
                 ),
-                const SizedBox(height: 5), // Espacio entre el precio y la descripción
+                const SizedBox(
+                    height: 5), // Espacio entre el precio y la descripción
                 Text(
                   'Descripción: $descripcion',
                   style: const TextStyle(fontSize: 16),
                 ),
-                const SizedBox(height: 10), // Espacio entre la descripción y el botón
+                const SizedBox(
+                    height: 10), // Espacio entre la descripción y el botón
                 Align(
                   alignment: Alignment.bottomRight,
                   child: IconButton(

@@ -39,7 +39,7 @@ class _PedidosPageState extends State<PedidosPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mis Pedidos'),
+        title: const Text('Mis Pedidos'),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -47,35 +47,37 @@ class _PedidosPageState extends State<PedidosPage> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [Colors.blue.shade100, Colors.blue.shade200],
-            stops: [0.3, 0.9],
+            stops: const [0.3, 0.9],
           ),
         ),
         child: _pedidos == null
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : _pedidos!.isEmpty
-                ? Center(child: Text('No hay pedidos disponibles'))
+                ? const Center(child: Text('No hay pedidos disponibles'))
                 : ListView.builder(
                     itemCount: _pedidos!.length,
                     itemBuilder: (context, index) {
                       var pedido = _pedidos![index];
                       return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
                         child: Card(
                           elevation: 6.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                           child: ExpansionTile(
-                            tilePadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                            tilePadding: const EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 12.0),
                             title: Container(
-                              padding: EdgeInsets.all(12.0),
+                              padding: const EdgeInsets.all(12.0),
                               decoration: BoxDecoration(
                                 color: Colors.blue.shade400,
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Text(
                                 'Pedido ID: ${pedido.id ?? 'N/A'}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
@@ -84,14 +86,15 @@ class _PedidosPageState extends State<PedidosPage> {
                             ),
                             children: [
                               ListTile(
-                                title: Text(DateFormat.yMMMd().format(pedido.fechaPedido)),
-                                subtitle: Text('Fecha del pedido'),
+                                title: Text(DateFormat.yMMMd()
+                                    .format(pedido.fechaPedido)),
+                                subtitle: const Text('Fecha del pedido'),
                                 textColor: Colors.black,
                               ),
-                              Divider(),
+                              const Divider(),
                               ListView.builder(
                                 shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 itemCount: pedido.articulos.length,
                                 itemBuilder: (context, itemIndex) {
                                   var articulo = pedido.articulos[itemIndex];
@@ -99,19 +102,21 @@ class _PedidosPageState extends State<PedidosPage> {
                                     title: Text(articulo.nombre),
                                     subtitle: Text(
                                       '${articulo.cantidad} x \$${articulo.precio.toStringAsFixed(2)}',
-                                      style: TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   );
                                 },
                               ),
                               ListTile(
-                                title: Text(
+                                title: const Text(
                                   'Total del pedido:',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 trailing: Text(
                                   '\$${pedido.totalPedido.toStringAsFixed(2)}',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],

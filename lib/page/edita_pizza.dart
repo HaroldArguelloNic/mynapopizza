@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mynapopizza/page/producto_page.dart';
 import 'package:mynapopizza/utils/text_box.dart';
 
 class EditaPizza extends StatefulWidget {
@@ -119,7 +118,7 @@ class _EditaPizzaState extends State<EditaPizza> {
     );
     //update in FIrestore
     if (newValue.contains(RegExp(r'[A-Z]'))) {
-      if (newValue.trim().length > 0) {
+      if (newValue.trim().isNotEmpty) {
         await pizzaCollection.doc(widget.idPizza).update({field: newValue});
       }
     } else {

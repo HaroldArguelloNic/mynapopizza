@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../utils/upload_image.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+  const RegistrationPage({super.key});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -26,7 +26,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final numeroController = TextEditingController();
   final registerDay = TextEditingController();
 
-  bool _isObscure = true;
   bool _isLoading = false;
   File? imageUser;
   static String? token;

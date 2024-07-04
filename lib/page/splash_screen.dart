@@ -12,7 +12,7 @@ class SplashScreen extends StatelessWidget {
       const Duration(seconds: 2),
       () => Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) =>   LoginPage()),
+        MaterialPageRoute(builder: (context) => const LoginPage()),
       ),
     );
 
@@ -23,20 +23,22 @@ class SplashScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Texto de bienvenida
-            
+
             const Text(
-                'PizzaNapo...',
-                style: TextStyle(
-                  fontStyle: FontStyle.italic, 
-                  fontWeight: FontWeight.bold,
-                  fontSize: 35,
-                  shadows: [Shadow(
+              'PizzaNapo...',
+              style: TextStyle(
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+                shadows: [
+                  Shadow(
                     color: Colors.black, // Color de la sombra
                     blurRadius: 4, // Radio de desenfoque de la sombra
                     offset: Offset(2, 2), // Desplazamiento de la sombra
-                  )],
-                ),
+                  )
+                ],
               ),
+            ),
             const SizedBox(
               height: 20.0,
             ),

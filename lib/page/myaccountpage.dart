@@ -57,7 +57,7 @@ class _MyAccountPageState extends State<MyAccountPage> {
       ),
     );
     //update in FIrestore
-    if (newValue.trim().length > 0) {
+    if (newValue.trim().isNotEmpty) {
       await usersCollection.doc(currentUser.uid).update({field: newValue});
     }
   }
