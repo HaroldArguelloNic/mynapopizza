@@ -57,7 +57,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                       style: TextStyle(color: Colors.indigo),
                       textAlign: TextAlign.center,
                     ),
-                    onTap: () => Navigator.pushNamed(context, '/home'),
+                    onTap: () => Navigator.pop(context, const HomeAdmin()),
                   ),
                 ),
                 Padding(
