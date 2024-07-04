@@ -23,5 +23,13 @@ Esta aplicación sera el projecto a desarrollar en Curso Libre Profesional II, U
 
 
 
-![file](https://github.com/HaroldArguelloNic/mynapopizza/assets/89761802/3cee2854-ad9c-4e2c-9cc1-8cba2b3a054d)
+![file](https://github.com/HaroldArguelloNic/mynapopizza/assets/89761802/3cee2854-ad9c-4e2c-9cc1-8cba2b3a054d) 
 
+
+### Estudiantes desarrolladores del proyecto
+
+1- Maximo Raudez Guzman
+2- Harold José Arguello
+
+### Docente
+Ing. Luis Alberto Guido Calderon
