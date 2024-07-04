@@ -17,7 +17,8 @@ class ProductoPageState extends State<ProductoPage> {
   @override
   void initState() {
     super.initState();
-    _futurePizzas = listaPizzas(); // Obtiene la lista de pizzas al iniciar la página
+    _futurePizzas =
+        listaPizzas(); // Obtiene la lista de pizzas al iniciar la página
   }
 
   void _registerPizza(BuildContext context) {
@@ -69,7 +70,8 @@ class ProductoPageState extends State<ProductoPage> {
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 5), // Espacio entre el nombre y el precio
+                const SizedBox(
+                    height: 5), // Espacio entre el nombre y el precio
                 Text(
                   'Precio: \$$precio',
                   style: const TextStyle(
@@ -77,12 +79,14 @@ class ProductoPageState extends State<ProductoPage> {
                       color: Colors.green,
                       fontWeight: FontWeight.bold), // Estilo del precio
                 ),
-                const SizedBox(height: 5), // Espacio entre el precio y la descripción
+                const SizedBox(
+                    height: 5), // Espacio entre el precio y la descripción
                 Text(
                   'Descripción: $descripcion',
                   style: const TextStyle(fontSize: 16),
                 ),
-                const SizedBox(height: 10), // Espacio entre la descripción y el botón
+                const SizedBox(
+                    height: 10), // Espacio entre la descripción y el botón
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -125,7 +129,8 @@ class ProductoPageState extends State<ProductoPage> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
         image: DecorationImage(
-          image: NetworkImage(imagePath), // Usa NetworkImage para cargar la imagen desde una URL
+          image: NetworkImage(
+              imagePath), // Usa NetworkImage para cargar la imagen desde una URL
           fit: BoxFit.cover,
         ),
       ),
@@ -134,47 +139,59 @@ class ProductoPageState extends State<ProductoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Lista de Pizzas'),
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/background2.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: _futurePizzas,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(
-              child: Text('No hay pizzas disponibles'),
-            );
-          } else {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final pizza = snapshot.data![index];
-                return _buildPizzaCard(
-                  pizza['nombre'] ?? 'Nombre no disponible',
-                  pizza['imageUrl'] ??
-                      'https://via.placeholder.com/200', // URL de imagen de respaldo si no se proporciona una
-                  pizza['descripcion'] ?? 'Descripción no disponible',
-                  pizza['precio'] != null
-                      ? pizza['precio'].toString() // convierte el precion en cadena si esta presenta
-                      : 'Precio no disponible',
-                  pizza['id'] ?? 'id no disponible', // Convierte el precio en cadena si está presente
-                );
-              },
-            );
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _registerPizza(context),
-        tooltip: 'Registrar Nueva Pizza',
-        child: const Icon(Icons.add),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text('Lista de Pizzas'),
+          backgroundColor: Colors.orange[100],
+        ),
+        body: FutureBuilder<List<Map<String, dynamic>>>(
+          future: _futurePizzas,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(
+                child: Text('No hay pizzas disponibles'),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final pizza = snapshot.data![index];
+                  return _buildPizzaCard(
+                    pizza['nombre'] ?? 'Nombre no disponible',
+                    pizza['imageUrl'] ??
+                        'https://via.placeholder.com/200', // URL de imagen de respaldo si no se proporciona una
+                    pizza['descripcion'] ?? 'Descripción no disponible',
+                    pizza['precio'] != null
+                        ? pizza['precio']
+                            .toString() // convierte el precion en cadena si esta presenta
+                        : 'Precio no disponible',
+                    pizza['id'] ??
+                        'id no disponible', // Convierte el precio en cadena si está presente
+                  );
+                },
+              );
+            }
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => _registerPizza(context),
+          tooltip: 'Registrar Nueva Pizza',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

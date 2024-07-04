@@ -3,10 +3,15 @@ import 'package:flutter/material.dart';
 
 import 'package:mynapopizza/page/login_page.dart';
 
-class HomeAdmin extends StatelessWidget {
+class HomeAdmin extends StatefulWidget {
   final Map? userData;
   const HomeAdmin({super.key, this.userData});
 
+  @override
+  State<HomeAdmin> createState() => _HomeAdminState();
+}
+
+class _HomeAdminState extends State<HomeAdmin> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +23,7 @@ class HomeAdmin extends StatelessWidget {
         ),
         child: Scaffold(
           drawer: Drawer(
+            backgroundColor: Colors.orange[100],
             child: ListView(
               padding: EdgeInsets.zero,
               children: [
@@ -25,14 +31,18 @@ class HomeAdmin extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: const Color.fromRGBO(224, 132, 46, 0.71),
                         image: DecorationImage(
-                            image: NetworkImage(userData!['image']))),
-                    child: const Text(
-                      'Menu',
-                      style: TextStyle(
-                        backgroundColor: Colors.black,
-                        color: Colors.amber,
-                        fontSize: 20,
-                        letterSpacing: 2,
+                            image: NetworkImage(widget.userData!['image']))),
+                    child: Container(
+                      height: 25,
+                      alignment: Alignment.bottomCenter,
+                      child: const Text(
+                        'Menu',
+                        style: TextStyle(
+                          backgroundColor: Colors.black,
+                          color: Colors.amber,
+                          fontSize: 20,
+                          letterSpacing: 2,
+                        ),
                       ),
                     )),
                 Padding(
@@ -150,19 +160,19 @@ class HomeAdmin extends StatelessWidget {
                   height: 50,
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(userData!['image']),
+                  backgroundImage: NetworkImage(widget.userData!['image']),
                   radius: 100,
                 ),
                 const SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "Bienvenido Administrador ${userData!['name']}",
+                  "Bienvenido Administrador ${widget.userData!['name']}",
                   style: const TextStyle(
                       fontSize: 20, backgroundColor: Colors.amber),
                 ),
                 Text(
-                  "Correo Electronico ${userData!['correoElectronico']}",
+                  "Correo Electronico ${widget.userData!['correoElectronico']}",
                   style: const TextStyle(
                       fontSize: 14, backgroundColor: Colors.amber),
                 ),

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:mynapopizza/services/cartprovider.dart';
 import 'package:mynapopizza/page/login_page.dart';
 import 'package:mynapopizza/services/login_provider.dart';
@@ -8,8 +10,8 @@ import 'package:mynapopizza/services/usuario_service.dart';
 import 'package:provider/provider.dart'; // Verificar que no halla errores en la funcion lista para obtener los datos.
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required userData});
-
+  const HomePage({super.key, this.userData});
+  final Map? userData;
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -48,14 +50,33 @@ class _HomePageState extends State<HomePage> {
       ),
       child: Scaffold(
         drawer: Drawer(
+          backgroundColor: Colors.orange[200],
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
-              const DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(224, 132, 46, 0.71),
+              DrawerHeader(
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.orange[400],
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        widget.userData!['image'],
+                      ),
+                      fit: BoxFit.contain,
+                    )),
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: const Text(
+                    'Menu',
+                    style: TextStyle(
+                        letterSpacing: 3,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        backgroundColor: Colors.black),
                   ),
-                  child: Text('Menu')),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ListTile(
@@ -116,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () => Navigator.pushNamed(context, '/miperfil'),
                 ),
               ),
-               Padding(
+              Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: ListTile(
                   leading: const Icon(
@@ -151,7 +172,6 @@ class _HomePageState extends State<HomePage> {
                               builder: (context) => const LoginPage()));
                     }),
               ),
-              
             ],
           ),
         ),

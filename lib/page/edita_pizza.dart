@@ -13,63 +13,71 @@ class EditaPizza extends StatefulWidget {
 class _EditaPizzaState extends State<EditaPizza> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.orange[200],
-      appBar: AppBar(
-        title: const Text('Edicion de Producto'),
-        backgroundColor: Colors.orange[100],
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/background2.jpg'),
+          fit: BoxFit.cover,
+        ),
       ),
-      body: StreamBuilder<DocumentSnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('pizzas')
-            .doc(widget.idPizza)
-            .snapshots(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final pizzadata = snapshot.data?.data() as Map<String, dynamic>;
-            return ListView(
-              children: [
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: 200,
-                  height: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    image: DecorationImage(
-                      image: NetworkImage(pizzadata[
-                          'imageUrl']), // Usa NetworkImage para cargar la imagen desde una URL
-                      fit: BoxFit.cover,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          title: const Text('Edicion de Producto'),
+          backgroundColor: Colors.orange[100],
+        ),
+        body: StreamBuilder<DocumentSnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection('pizzas')
+              .doc(widget.idPizza)
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final pizzadata = snapshot.data?.data() as Map<String, dynamic>;
+              return ListView(
+                children: [
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      image: DecorationImage(
+                        image: NetworkImage(pizzadata[
+                            'imageUrl']), // Usa NetworkImage para cargar la imagen desde una URL
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                MyTextBox(
-                    text: pizzadata['nombre'],
-                    sectionName: 'Nombre',
-                    onPressed: () => editfield('nombre')),
-                MyTextBox(
-                    text: pizzadata['descripcion'],
-                    sectionName: 'Descripcion',
-                    onPressed: () => editfield('descripcion')),
-                MyTextBox(
-                    text: pizzadata['precio'].toString(),
-                    sectionName: 'Precio',
-                    onPressed: () => editfield('precio')),
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  MyTextBox(
+                      text: pizzadata['nombre'],
+                      sectionName: 'Nombre',
+                      onPressed: () => editfield('nombre')),
+                  MyTextBox(
+                      text: pizzadata['descripcion'],
+                      sectionName: 'Descripcion',
+                      onPressed: () => editfield('descripcion')),
+                  MyTextBox(
+                      text: pizzadata['precio'].toString(),
+                      sectionName: 'Precio',
+                      onPressed: () => editfield('precio')),
+                ],
+              );
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text('Eror${snapshot.error}'),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Eror${snapshot.error}'),
-            );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }
@@ -117,7 +125,7 @@ class _EditaPizzaState extends State<EditaPizza> {
       ),
     );
     //update in FIrestore
-    if (newValue.contains(RegExp(r'[A-Z]'))) {
+    if (newValue.contains(RegExp(r'[a-zA-Z]'))) {
       if (newValue.trim().isNotEmpty) {
         await pizzaCollection.doc(widget.idPizza).update({field: newValue});
       }

@@ -28,6 +28,7 @@ class _CartScreenState extends State<CartScreen> {
         CarritoService(); // Instancia del servicio CarritoService
 
     return Scaffold(
+      backgroundColor: Colors.orange[200],
       appBar: AppBar(
         title: const Text('Carrito de Compras'),
       ),
